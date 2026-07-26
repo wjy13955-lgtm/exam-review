@@ -4,7 +4,7 @@
     <text class="muted">个人版：数据保存在当前微信本机缓存</text>
   </view>
 
-  <view class="card">
+  <view class="card settings-form-card">
     <form class="form" bindsubmit="saveProfile">
       <view class="grid two">
         <view class="field"><text class="label">称呼</text><input name="name" value="{{profile.name}}" placeholder="可选" /></view>
@@ -20,11 +20,11 @@
         <view class="field"><text class="label">工作日分钟</text><input name="weekday" type="number" value="{{profile.weekday}}" /></view>
         <view class="field"><text class="label">周末分钟</text><input name="weekend" type="number" value="{{profile.weekend}}" /></view>
       </view>
-      <button class="btn" formType="submit">保存目标</button>
+      <view class="form-action"><button class="btn" formType="submit">保存目标</button></view>
     </form>
   </view>
 
-  <view class="card">
+  <view class="card settings-actions">
     <view class="card-head">
       <view>
         <text class="h3">数据与备份</text>

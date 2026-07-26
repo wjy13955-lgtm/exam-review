@@ -1,5 +1,55 @@
 .picker {
-  min-height: 78rpx;
-  line-height: 78rpx;
+  min-height: 88rpx;
+  line-height: 1.4;
   color: #16241d;
+}
+
+.record-heading {
+  padding: 26rpx 6rpx 18rpx;
+}
+
+.record-heading .h2 {
+  margin-bottom: 10rpx;
+}
+
+.record-heading .muted {
+  display: block;
+  line-height: 1.5;
+}
+
+.record-card {
+  padding: 26rpx 32rpx 32rpx;
+}
+
+.record-form {
+  gap: 0;
+}
+
+.record-form .field {
+  gap: 0;
+}
+
+.record-form .label {
+  display: flex;
+  line-height: 36rpx;
+}
+
+.record-form input,
+.record-form textarea,
+.record-form picker {
+  min-height: 92rpx;
+}
+
+.record-form textarea {
+  min-height: 210rpx;
+  padding: 28rpx;
+  line-height: 1.55;
+}
+
+.score-fields {
+  gap: 22rpx;
+}
+
+.save-button {
+  margin: 0;
 }

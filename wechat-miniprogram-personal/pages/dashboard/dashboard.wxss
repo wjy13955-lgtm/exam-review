@@ -1,3 +1,23 @@
 checkbox {
   transform: scale(.85);
 }
+
+.dashboard-stat-line {
+  min-height: 66rpx;
+  margin-top: 8rpx;
+  display: flex;
+  align-items: baseline;
+  gap: 10rpx;
+  white-space: nowrap;
+}
+
+.dashboard-stat-line .stat-num {
+  display: inline;
+  margin-top: 0;
+  line-height: 1.15;
+}
+
+.stat-suffix {
+  color: #707871;
+  font-size: 23rpx;
+}

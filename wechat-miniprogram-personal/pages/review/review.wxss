@@ -1,6 +1,10 @@
 .picker {
-  min-height: 78rpx;
-  line-height: 78rpx;
+  min-height: 88rpx;
+  line-height: 1.4;
+}
+
+.page > .card > .form {
+  margin-top: 4rpx;
 }
 
 .mistake-photo {

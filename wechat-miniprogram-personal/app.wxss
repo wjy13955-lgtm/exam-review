@@ -52,12 +52,14 @@ view, text, input, textarea, button, picker {
   color: rgba(255,255,255,.78);
 }
 
-.count-num {
+.count .count-num {
   display: block;
-  font-size: 76rpx;
-  line-height: 1;
+  margin: 8rpx 0 4rpx;
+  font-size: 88rpx;
+  line-height: .95;
   font-family: Georgia, serif;
   font-weight: 850;
+  color: #fff;
 }
 
 .grid {
@@ -86,6 +88,26 @@ view, text, input, textarea, button, picker {
   margin-bottom: 22rpx;
 }
 
+.card-head > view:first-child {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-head .h3 + .muted {
+  display: block;
+  margin-top: 8rpx;
+  line-height: 1.5;
+}
+
+.card-head > .btn {
+  flex-shrink: 0;
+}
+
+.card-head-main {
+  flex: 1;
+  min-width: 0;
+}
+
 .h2 {
   display: block;
   font-size: 38rpx;
@@ -104,18 +126,42 @@ view, text, input, textarea, button, picker {
 }
 
 .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-height: 76rpx;
   padding: 0 28rpx;
+  margin: 0;
   border-radius: 18rpx;
   background: #7d89b5;
   color: white;
   font-weight: 750;
   font-size: 27rpx;
+  line-height: 1;
+  border: 0;
+}
+
+.btn::after {
+  border: 0;
 }
 
 .btn.plain {
-  background: #f4f5fb;
-  color: #6674a6;
+  background: #eef1fb;
+  color: #59699f;
+  border: 2rpx solid #d8def2;
+}
+
+.card-action {
+  flex: 0 0 184rpx;
+  width: 184rpx;
+  min-height: 72rpx;
+  padding: 0 20rpx;
+  align-self: center;
+}
+
+.card-action:active {
+  background: #dfe5f7;
+  border-color: #bcc7e8;
 }
 
 .btn.warn {
@@ -143,6 +189,25 @@ view, text, input, textarea, button, picker {
   display: block;
   color: #707871;
   font-size: 22rpx;
+}
+
+.capability-grid {
+  gap: 16rpx;
+}
+
+.capability-item {
+  min-height: 132rpx;
+  padding: 22rpx;
+  border: 2rpx solid #e1e5f1;
+  border-radius: 20rpx;
+  background: #fafbff;
+}
+
+.capability-item .stat-label {
+  margin-bottom: 8rpx;
+  color: #344058;
+  font-size: 25rpx;
+  font-weight: 800;
 }
 
 .stat-num {
@@ -252,33 +317,94 @@ view, text, input, textarea, button, picker {
 }
 
 .form {
-  display: grid;
-  gap: 18rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .field {
   display: grid;
-  gap: 9rpx;
+  gap: 0;
+}
+
+.form > .field,
+.form > .grid {
+  margin-bottom: 0;
+}
+
+.form > .grid .field {
+  margin-bottom: 0;
 }
 
 .label {
+  min-height: 48rpx;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
   color: #303932;
   font-size: 24rpx;
   font-weight: 750;
+  line-height: 36rpx;
 }
 
 input, textarea, picker {
   width: 100%;
-  min-height: 78rpx;
-  padding: 0 22rpx;
-  border: 1rpx solid #d9dbd4;
+  min-height: 92rpx;
+  padding: 0 28rpx;
+  border: 2rpx solid #dfe2dc;
   border-radius: 18rpx;
-  background: white;
+  background: #fff;
+}
+
+input {
+  height: 92rpx;
+  line-height: 92rpx;
+}
+
+picker {
+  height: 92rpx;
+}
+
+.picker {
+  min-height: 88rpx;
+  display: flex;
+  align-items: center;
+  line-height: 1.4;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #aeb9dc;
+  background: #fdfdff;
 }
 
 textarea {
-  min-height: 150rpx;
-  padding-top: 20rpx;
+  min-height: 200rpx;
+  padding: 28rpx;
+  line-height: 1.55;
+}
+
+.form > .btn {
+  width: auto;
+  align-self: stretch;
+  margin: 24rpx 0 0;
+}
+
+.form-action {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-top: 28rpx;
+}
+
+.form-action .btn {
+  width: 520rpx;
+  max-width: 100%;
+  margin: 0;
+}
+
+.form-card {
+  padding: 26rpx 32rpx 32rpx;
 }
 
 .empty {
@@ -288,7 +414,17 @@ textarea {
 }
 
 .section-title {
-  padding: 12rpx 4rpx 4rpx;
+  padding: 26rpx 6rpx 20rpx;
+}
+
+.section-title .h2 {
+  margin-bottom: 10rpx;
+  line-height: 1.25;
+}
+
+.section-title .muted {
+  display: block;
+  line-height: 1.55;
 }
 
 .switch {

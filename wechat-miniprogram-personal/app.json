@@ -21,23 +21,33 @@
     "list": [
       {
         "pagePath": "pages/dashboard/dashboard",
-        "text": "总览"
+        "text": "总览",
+        "iconPath": "assets/tabbar/dashboard.png",
+        "selectedIconPath": "assets/tabbar/dashboard-active.png"
       },
       {
         "pagePath": "pages/plan/plan",
-        "text": "计划"
+        "text": "计划",
+        "iconPath": "assets/tabbar/plan.png",
+        "selectedIconPath": "assets/tabbar/plan-active.png"
       },
       {
         "pagePath": "pages/record/record",
-        "text": "练习"
+        "text": "练习",
+        "iconPath": "assets/tabbar/record.png",
+        "selectedIconPath": "assets/tabbar/record-active.png"
       },
       {
         "pagePath": "pages/review/review",
-        "text": "复盘"
+        "text": "复盘",
+        "iconPath": "assets/tabbar/review.png",
+        "selectedIconPath": "assets/tabbar/review-active.png"
       },
       {
         "pagePath": "pages/mock/mock",
-        "text": "模考"
+        "text": "模考",
+        "iconPath": "assets/tabbar/mock.png",
+        "selectedIconPath": "assets/tabbar/mock-active.png"
       }
     ]
   },

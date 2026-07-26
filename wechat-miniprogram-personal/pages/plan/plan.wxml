@@ -1,5 +1,5 @@
 <view class="page">
-  <view class="section-title">
+  <view class="section-title plan-heading">
     <text class="h2">学习计划</text>
     <text class="muted">周计划执行，月计划校准方向</text>
   </view>
@@ -47,12 +47,15 @@
     <view class="grid two">
       <view class="card stat"><text class="stat-label">本月任务</text><text class="stat-num">{{month.total}}</text></view>
       <view class="card stat"><text class="stat-label">已完成</text><text class="stat-num">{{month.done}}</text></view>
-      <view class="card stat"><text class="stat-label">计划时长</text><text class="stat-num">{{month.hours}}</text><text class="muted">小时</text></view>
+      <view class="card stat">
+        <text class="stat-label">计划时长</text>
+        <view class="stat-value-line"><text class="stat-num">{{month.hours}}</text><text class="stat-unit">小时</text></view>
+      </view>
       <view class="card stat"><text class="stat-label">完成率</text><text class="stat-num">{{month.rate}}%</text></view>
     </view>
-    <view class="card">
+    <view class="card monthly-tip">
       <text class="h3">月度规划提示</text>
-      <text class="muted">建议每两周安排一次模考，并给错题复盘预留固定时间。</text>
+      <text class="muted monthly-tip-text">建议每两周安排一次模考，并给错题复盘预留固定时间。</text>
       <button class="btn" bindtap="regenerate">重新生成未来计划</button>
     </view>
   </view>

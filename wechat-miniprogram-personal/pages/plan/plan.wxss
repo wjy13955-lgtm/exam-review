@@ -10,3 +10,55 @@
 .day-block .pill {
   margin-bottom: 8rpx;
 }
+
+.plan-heading {
+  padding: 28rpx 6rpx 22rpx;
+}
+
+.plan-heading .h2 {
+  margin-bottom: 10rpx;
+  line-height: 1.25;
+}
+
+.plan-heading .muted {
+  display: block;
+  line-height: 1.55;
+}
+
+.stat-value-line {
+  display: flex;
+  align-items: baseline;
+  gap: 10rpx;
+  margin-top: 8rpx;
+}
+
+.stat-value-line .stat-num {
+  display: inline;
+  margin-top: 0;
+}
+
+.stat-unit {
+  color: #707871;
+  font-size: 23rpx;
+  white-space: nowrap;
+}
+
+.monthly-tip {
+  padding-top: 32rpx;
+  padding-bottom: 32rpx;
+}
+
+.monthly-tip .h3 {
+  margin-bottom: 12rpx;
+  line-height: 1.3;
+}
+
+.monthly-tip-text {
+  display: block;
+  margin-bottom: 26rpx;
+  line-height: 1.65;
+}
+
+.monthly-tip .btn {
+  width: 100%;
+}

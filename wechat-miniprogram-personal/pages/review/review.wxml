@@ -9,7 +9,7 @@
     <view class="card stat"><text class="stat-label">已掌握</text><text class="stat-num">{{masteredList.length}}</text></view>
   </view>
 
-  <view class="card">
+  <view class="card form-card">
     <view class="card-head">
       <view>
         <text class="h3">添加错题</text>
@@ -38,7 +38,7 @@
         </picker>
       </view>
       <view class="field"><text class="label">正确思路</text><textarea name="solution" placeholder="下次看到什么特征，就用什么方法？" /></view>
-      <button class="btn" formType="submit">保存并生成复盘计划</button>
+      <view class="form-action"><button class="btn" formType="submit">保存并生成复盘计划</button></view>
     </form>
   </view>
 

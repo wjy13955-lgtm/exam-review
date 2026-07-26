@@ -1,4 +1,12 @@
 .picker {
-  min-height: 78rpx;
-  line-height: 78rpx;
+  min-height: 88rpx;
+  line-height: 1.4;
+}
+
+.grid.two .field {
+  min-width: 0;
+}
+
+.form .grid.two {
+  gap: 22rpx;
 }

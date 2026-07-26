@@ -9,7 +9,7 @@
     <view class="card stat"><text class="stat-label">最近总分</text><text class="stat-num">{{latestScore}}</text></view>
   </view>
 
-  <view class="card">
+  <view class="card form-card">
     <form class="form" bindsubmit="submit">
       <view class="field">
         <text class="label">模考类型</text>
@@ -22,7 +22,7 @@
         <view class="field"><text class="label">申论得分</text><input name="shenlun" type="digit" placeholder="70" /></view>
       </view>
       <view class="field"><text class="label">复盘结论</text><textarea name="note" placeholder="本次最需要修正的一个问题" /></view>
-      <button class="btn" formType="submit">保存成绩</button>
+      <view class="form-action"><button class="btn" formType="submit">保存成绩</button></view>
     </form>
   </view>
 

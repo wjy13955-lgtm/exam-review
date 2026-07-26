@@ -15,20 +15,22 @@
   <view class="grid two">
     <view class="card stat">
       <text class="stat-label">今日完成</text>
-      <text class="stat-num">{{stats.todayRate}}%</text>
+      <view class="dashboard-stat-line"><text class="stat-num">{{stats.todayRate}}%</text></view>
       <view class="progress"><view class="bar" style="width: {{stats.todayRate}}%;"></view></view>
     </view>
     <view class="card stat">
       <text class="stat-label">今日用时</text>
-      <text class="stat-num">{{stats.doneMinutes}}</text>
-      <text class="muted">/ {{stats.todayMinutes}} 分钟</text>
+      <view class="dashboard-stat-line">
+        <text class="stat-num">{{stats.doneMinutes}}</text>
+        <text class="stat-suffix">/ {{stats.todayMinutes}} 分钟</text>
+      </view>
       <view class="progress"><view class="bar" style="width: {{timeRate}}%;"></view></view>
     </view>
   </view>
 
   <view class="card">
     <view class="card-head">
-      <view>
+      <view class="card-head-main">
         <text class="h3">五大模块今日目标</text>
         <text class="muted">题量 · 正确率 · 完成时间</text>
       </view>
@@ -47,11 +49,11 @@
 
   <view class="card">
     <view class="card-head">
-      <view>
+      <view class="card-head-main">
         <text class="h3">今日任务</text>
         <text class="muted">按计划逐项完成</text>
       </view>
-      <button class="btn plain" bindtap="goPlan">查看计划</button>
+      <button class="btn plain card-action" bindtap="goPlan">查看计划</button>
     </view>
     <block wx:if="{{todayTasks.length}}">
       <view wx:for="{{todayTasks}}" wx:key="id" class="task">
@@ -67,11 +69,11 @@
 
   <view class="card">
     <view class="card-head">
-      <view>
+      <view class="card-head-main">
         <text class="h3">今日到期复盘</text>
         <text class="muted">按遗忘曲线安排，完成后进入下一轮</text>
       </view>
-      <button class="btn plain" bindtap="goReview">去复盘</button>
+      <button class="btn plain card-action" bindtap="goReview">去复盘</button>
     </view>
     <block wx:if="{{dueMistakes.length}}">
       <view wx:for="{{dueMistakes}}" wx:key="id" class="task">
@@ -87,17 +89,17 @@
 
   <view class="card">
     <view class="card-head">
-      <view>
+      <view class="card-head-main">
         <text class="h3">个人版能力规划</text>
         <text class="muted">先做好自用记录，数据保存在本机</text>
       </view>
-      <button class="btn plain" bindtap="goSettings">设置</button>
+      <button class="btn plain card-action" bindtap="goSettings">设置</button>
     </view>
-    <view class="grid two">
-      <view class="stat"><text class="stat-label">本地备份</text><text class="muted">设置页可导出/恢复</text></view>
-      <view class="stat"><text class="stat-label">学习报告</text><text class="muted">后续按记录生成</text></view>
-      <view class="stat"><text class="stat-label">错题复盘</text><text class="muted">拍照索引 + 遗忘曲线</text></view>
-      <view class="stat"><text class="stat-label">模考趋势</text><text class="muted">对比目标分数</text></view>
+    <view class="grid two capability-grid">
+      <view class="stat capability-item"><text class="stat-label">本地备份</text><text class="muted">设置页可导出/恢复</text></view>
+      <view class="stat capability-item"><text class="stat-label">学习报告</text><text class="muted">后续按记录生成</text></view>
+      <view class="stat capability-item"><text class="stat-label">错题复盘</text><text class="muted">拍照索引 + 遗忘曲线</text></view>
+      <view class="stat capability-item"><text class="stat-label">模考趋势</text><text class="muted">对比目标分数</text></view>
     </view>
   </view>
 </view>
