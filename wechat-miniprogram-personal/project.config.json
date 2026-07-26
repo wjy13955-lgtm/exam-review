@@ -1,0 +1,15 @@
+{
+  "description": "上岸轨迹个人版微信小程序",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "latest",
+  "appid": "touristappid",
+  "projectname": "上岸轨迹-个人版",
+  "condition": {}
+}

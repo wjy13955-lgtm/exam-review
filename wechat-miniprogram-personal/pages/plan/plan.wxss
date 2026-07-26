@@ -1,0 +1,12 @@
+.day-block {
+  padding: 18rpx 0;
+  border-top: 1rpx solid #ecece6;
+}
+
+.day-block:first-of-type {
+  border-top: 0;
+}
+
+.day-block .pill {
+  margin-bottom: 8rpx;
+}

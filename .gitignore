@@ -1,0 +1,10 @@
+.DS_Store
+Thumbs.db
+node_modules/
+dist/
+*.log
+*.tmp
+*.bak
+
+# 打包产物可以按需保留；如果后续用 Git 管理，建议不提交压缩包
+*.zip

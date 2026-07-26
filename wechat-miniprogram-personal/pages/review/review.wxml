@@ -1,0 +1,96 @@
+<view class="page">
+  <view class="section-title">
+    <text class="h2">错题复盘</text>
+    <text class="muted">拍照留索引，按遗忘曲线自动安排复盘</text>
+  </view>
+
+  <view class="grid two">
+    <view class="card stat"><text class="stat-label">今日到期</text><text class="stat-num">{{dueList.length}}</text></view>
+    <view class="card stat"><text class="stat-label">已掌握</text><text class="stat-num">{{masteredList.length}}</text></view>
+  </view>
+
+  <view class="card">
+    <view class="card-head">
+      <view>
+        <text class="h3">添加错题</text>
+        <text class="muted">第二版先支持拍照/上传，OCR 自动识别后续接入</text>
+      </view>
+      <button class="btn plain" bindtap="chooseImage">拍照/上传</button>
+    </view>
+
+    <image wx:if="{{imagePath}}" class="mistake-photo" src="{{imagePath}}" mode="aspectFill" bindtap="previewImage" />
+
+    <form class="form" bindsubmit="submit">
+      <view class="field">
+        <text class="label">模块</text>
+        <picker range="{{modules}}" value="{{moduleIndex}}" bindchange="changeModule">
+          <view class="picker">{{modules[moduleIndex]}}</view>
+        </picker>
+      </view>
+      <view class="field"><text class="label">来源/题号</text><input name="source" placeholder="粉笔 · 第12题" /></view>
+      <view class="field"><text class="label">题目摘要</text><input name="summary" placeholder="用一句话描述考点" /></view>
+      <view class="field"><text class="label">题干文字</text><textarea name="questionText" placeholder="可手动粘贴识别出的题干；后续可接 OCR 自动填充" /></view>
+      <view class="field"><text class="label">错误知识点</text><input name="knowledge" placeholder="例如：增长率比较 / 削弱加强 / 排列组合" /></view>
+      <view class="field">
+        <text class="label">错误原因</text>
+        <picker range="{{reasons}}" value="{{reasonIndex}}" bindchange="changeReason">
+          <view class="picker">{{reasons[reasonIndex]}}</view>
+        </picker>
+      </view>
+      <view class="field"><text class="label">正确思路</text><textarea name="solution" placeholder="下次看到什么特征，就用什么方法？" /></view>
+      <button class="btn" formType="submit">保存并生成复盘计划</button>
+    </form>
+  </view>
+
+  <view class="card">
+    <view class="card-head">
+      <view><text class="h3">今日到期复盘</text><text class="muted">完成后自动进入下一轮</text></view>
+      <text class="pill">{{dueList.length}} 项</text>
+    </view>
+    <block wx:if="{{dueList.length}}">
+      <view wx:for="{{dueList}}" wx:key="id" class="review-card">
+        <image wx:if="{{item.imagePath}}" class="thumb" src="{{item.imagePath}}" mode="aspectFill" data-src="{{item.imagePath}}" bindtap="previewListImage" />
+        <view class="review-main">
+          <text class="task-title">{{item.summary}}</text>
+          <text class="task-meta">{{item.module}} · {{item.knowledge || item.reason}}</text>
+          <text class="task-meta">第 {{item.nextRound}} / 6 轮 · 到期 {{item.reviewDate}}</text>
+        </view>
+        <button class="btn plain mini" data-id="{{item.id}}" bindtap="finishReview">完成</button>
+      </view>
+    </block>
+    <view wx:else class="empty">今天没有到期错题</view>
+  </view>
+
+  <view class="card">
+    <view class="card-head">
+      <view><text class="h3">未来复盘</text><text class="muted">按 0/1/3/7/15/30 天安排</text></view>
+      <text class="pill">{{futureList.length}} 项</text>
+    </view>
+    <block wx:if="{{futureList.length}}">
+      <view wx:for="{{futureList}}" wx:key="id" class="task">
+        <view class="task-main">
+          <text class="task-title">{{item.summary}}</text>
+          <text class="task-meta">{{item.module}} · {{item.knowledge || item.reason}} · 下次 {{item.reviewDate}}</text>
+        </view>
+        <text class="pill">第 {{item.nextRound}} 轮</text>
+      </view>
+    </block>
+    <view wx:else class="empty">暂无未来复盘</view>
+  </view>
+
+  <view class="card">
+    <view class="card-head">
+      <view><text class="h3">已掌握</text><text class="muted">完成 6 轮后进入这里</text></view>
+      <text class="pill">{{masteredList.length}} 项</text>
+    </view>
+    <block wx:if="{{masteredList.length}}">
+      <view wx:for="{{masteredList}}" wx:key="id" class="task">
+        <view class="task-main">
+          <text class="task-title done">{{item.summary}}</text>
+          <text class="task-meta">{{item.module}} · {{item.knowledge || item.reason}}</text>
+        </view>
+      </view>
+    </block>
+    <view wx:else class="empty">还没有完成全部复盘的错题</view>
+  </view>
+</view>

@@ -1,0 +1,3 @@
+checkbox {
+  transform: scale(.85);
+}

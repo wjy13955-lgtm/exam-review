@@ -1,0 +1,46 @@
+{
+  "pages": [
+    "pages/dashboard/dashboard",
+    "pages/plan/plan",
+    "pages/record/record",
+    "pages/review/review",
+    "pages/mock/mock",
+    "pages/settings/settings"
+  ],
+  "window": {
+    "navigationBarTitleText": "上岸轨迹",
+    "navigationBarBackgroundColor": "#8996c4",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#fbfaf6"
+  },
+  "tabBar": {
+    "color": "#7a817b",
+    "selectedColor": "#7d89b5",
+    "backgroundColor": "#fffefa",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/dashboard/dashboard",
+        "text": "总览"
+      },
+      {
+        "pagePath": "pages/plan/plan",
+        "text": "计划"
+      },
+      {
+        "pagePath": "pages/record/record",
+        "text": "练习"
+      },
+      {
+        "pagePath": "pages/review/review",
+        "text": "复盘"
+      },
+      {
+        "pagePath": "pages/mock/mock",
+        "text": "模考"
+      }
+    ]
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents"
+}

@@ -1,0 +1,44 @@
+<view class="page">
+  <view class="section-title">
+    <text class="h2">练习记录</text>
+    <text class="muted">记录外部题库 App 的结果</text>
+  </view>
+
+  <view class="card">
+    <form class="form" bindsubmit="submit">
+      <view class="field">
+        <text class="label">模块</text>
+        <picker range="{{modules}}" value="{{moduleIndex}}" bindchange="changeModule">
+          <view class="picker">{{modules[moduleIndex]}}</view>
+        </picker>
+      </view>
+      <view class="field">
+        <text class="label">来源</text>
+        <input name="source" placeholder="例如：粉笔资料分析专项" />
+      </view>
+      <view class="grid two">
+        <view class="field"><text class="label">总题数</text><input name="total" type="number" value="20" /></view>
+        <view class="field"><text class="label">正确题数</text><input name="correct" type="number" value="15" /></view>
+      </view>
+      <view class="field"><text class="label">用时（分钟）</text><input name="minutes" type="number" value="30" /></view>
+      <view class="field"><text class="label">一句复盘</text><textarea name="note" placeholder="哪里卡住了？下次怎样更快？" /></view>
+      <button class="btn" formType="submit">保存练习</button>
+    </form>
+  </view>
+
+  <view class="card">
+    <view class="card-head">
+      <view><text class="h3">最近记录</text><text class="muted">正确率会和目标对比</text></view>
+    </view>
+    <block wx:if="{{records.length}}">
+      <view wx:for="{{records}}" wx:key="id" class="task">
+        <view class="task-main">
+          <text class="task-title">{{item.module}} · {{item.rate}}%</text>
+          <text class="task-meta">{{item.source}} · {{item.total}}题 · {{item.minutes}}分钟</text>
+        </view>
+        <text class="pill">{{item.date}}</text>
+      </view>
+    </block>
+    <view wx:else class="empty">还没有练习记录</view>
+  </view>
+</view>

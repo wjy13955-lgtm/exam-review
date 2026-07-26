@@ -1,0 +1,59 @@
+<view class="page">
+  <view class="section-title">
+    <text class="h2">学习计划</text>
+    <text class="muted">周计划执行，月计划校准方向</text>
+  </view>
+
+  <view class="switch">
+    <button class="{{mode === 'week' ? 'active' : ''}}" data-mode="week" bindtap="setMode">周计划</button>
+    <button class="{{mode === 'month' ? 'active' : ''}}" data-mode="month" bindtap="setMode">月计划</button>
+  </view>
+
+  <view wx:if="{{mode === 'week'}}">
+    <view class="grid two">
+      <view class="card stat">
+        <text class="stat-label">今日剩余</text>
+        <text class="stat-num">{{remaining}}</text>
+        <text class="muted">分钟</text>
+      </view>
+      <view class="card stat">
+        <text class="stat-label">任务进度</text>
+        <text class="stat-num">{{stats.todayRate}}%</text>
+        <view class="progress"><view class="bar" style="width: {{stats.todayRate}}%;"></view></view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="card-head">
+        <view><text class="h3">近 7 天安排</text><text class="muted">点击任务可标记完成</text></view>
+        <button class="btn plain" bindtap="quickAdd">＋任务</button>
+      </view>
+      <block wx:for="{{groupedTasks}}" wx:key="date">
+        <view class="day-block">
+          <text class="pill">{{item.date}}</text>
+          <view wx:for="{{item.tasks}}" wx:key="id" wx:for-item="task" class="task">
+            <checkbox checked="{{task.done}}" data-id="{{task.id}}" bindtap="toggleTask" />
+            <view class="task-main">
+              <text class="task-title {{task.done ? 'done' : ''}}">{{task.title}}</text>
+              <text class="task-meta">{{task.module}} · {{task.minutes}} 分钟</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view wx:else>
+    <view class="grid two">
+      <view class="card stat"><text class="stat-label">本月任务</text><text class="stat-num">{{month.total}}</text></view>
+      <view class="card stat"><text class="stat-label">已完成</text><text class="stat-num">{{month.done}}</text></view>
+      <view class="card stat"><text class="stat-label">计划时长</text><text class="stat-num">{{month.hours}}</text><text class="muted">小时</text></view>
+      <view class="card stat"><text class="stat-label">完成率</text><text class="stat-num">{{month.rate}}%</text></view>
+    </view>
+    <view class="card">
+      <text class="h3">月度规划提示</text>
+      <text class="muted">建议每两周安排一次模考，并给错题复盘预留固定时间。</text>
+      <button class="btn" bindtap="regenerate">重新生成未来计划</button>
+    </view>
+  </view>
+</view>

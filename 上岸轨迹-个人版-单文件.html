@@ -1,0 +1,635 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#173f2d">
+  <title>上岸轨迹｜公考备考驾驶舱</title>
+  <style>
+:root{--paper:#f4f4ee;--card:#fffefa;--ink:#18241c;--muted:#6d756f;--line:#dedfd7;--green:#17563a;--green2:#28734e;--soft:#e2eee5;--gold:#efc37b;--orange:#b86b35;--orangeSoft:#f6e7d9;--red:#a7463e;--radius:18px}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.5 "Microsoft YaHei","PingFang SC",system-ui,sans-serif}button,input,select,textarea{font:inherit}button{color:inherit;cursor:pointer}.shell{min-height:100vh;display:grid;grid-template-columns:230px 1fr}.sidebar{position:sticky;top:0;height:100vh;padding:28px 22px;background:#153d2b;color:white;display:flex;flex-direction:column}.brand{display:flex;align-items:center;gap:12px;color:white;text-decoration:none;margin-bottom:42px}.brand>b{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:var(--gold);color:#153d2b;font:800 22px serif}.brand strong,.brand small{display:block}.brand strong{font-size:17px;letter-spacing:.08em}.brand small{opacity:.55;font-size:10px;letter-spacing:.15em}.sidebar nav{display:grid;gap:6px}.nav-item{display:flex;align-items:center;gap:12px;width:100%;border:0;border-radius:11px;padding:11px 13px;background:transparent;color:#ffffffad;text-align:left}.nav-item:hover,.nav-item.active{background:#ffffff1c;color:white}.nav-item i{width:22px;font-style:normal;text-align:center}.side-foot{margin-top:auto;padding:16px 12px 0;border-top:1px solid #ffffff20;display:grid;gap:6px}.side-foot span{color:#ffffff78;font-size:10px}.side-foot button{border:0;background:none;padding:0;color:var(--gold);font-size:12px;font-weight:700;text-align:left}.topbar{min-height:110px;padding:24px clamp(24px,4vw,58px) 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.topbar p{margin:0 0 3px;color:var(--muted);font-size:12px;letter-spacing:.06em}.topbar h1{margin:0;font-size:26px;letter-spacing:-.03em}.top-actions{display:flex;align-items:center;gap:16px}.saved{color:var(--muted);font-size:11px}.saved::first-letter{color:#4d9d6b}.btn{border:0;border-radius:10px;padding:10px 16px;background:var(--green);color:white;font-weight:700}.btn:hover{background:var(--green2);transform:translateY(-1px)}.btn.outline{border:1px solid var(--line);background:var(--card);color:var(--ink)}.btn.small{padding:6px 10px;font-size:12px}.btn.danger{background:var(--red)}.text-btn{border:0;background:none;padding:0;color:var(--green);font-weight:700;font-size:12px}.view{max-width:1500px;margin:auto;padding:30px clamp(24px,4vw,58px) 72px}.hero{position:relative;overflow:hidden;padding:28px 30px;border-radius:22px;background:linear-gradient(125deg,#194b34,#286b4c);color:white;display:grid;grid-template-columns:1fr auto;align-items:center;gap:30px}.hero:after{content:"岸";position:absolute;right:35%;top:-72px;color:#ffffff0a;font:800 210px serif}.hero .kicker{color:var(--gold);font-size:11px;font-weight:800;letter-spacing:.13em}.hero h2{max-width:660px;margin:5px 0 9px;font-size:clamp(23px,3vw,34px);line-height:1.25}.hero p{margin:0;color:#ffffffad;font-size:12px}.countdown{text-align:right;min-width:155px}.countdown strong{display:block;color:var(--gold);font:700 52px/1 Georgia,serif}.countdown span{color:#ffffff9c;font-size:11px}.grid{display:grid;gap:18px;margin-top:18px}.grid.stats{grid-template-columns:repeat(4,1fr)}.grid.two{grid-template-columns:minmax(0,1.4fr) minmax(290px,.8fr)}.card{padding:20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);box-shadow:0 5px 24px #1f2d2308}.card-head,.section-head{display:flex;align-items:center;justify-content:space-between;gap:14px}.card-head{margin-bottom:16px}.card h2,.card h3{margin:0}.card h2{font-size:19px}.card h3{font-size:15px}.card-head p,.section-head p{margin:3px 0 0;color:var(--muted);font-size:11px}.stat{padding:17px 20px}.stat .label{display:flex;justify-content:space-between;color:var(--muted);font-size:11px}.stat strong{display:inline-block;margin-top:7px;font:700 29px Georgia,serif}.stat small{margin-left:5px;color:var(--muted);font-size:10px}.pill{display:inline-block;padding:3px 8px;border-radius:99px;background:var(--soft);color:var(--green);font-size:10px;font-weight:700}.pill.orange{background:var(--orangeSoft);color:#945128}.progress{height:7px;border-radius:99px;background:#e7e8e1;overflow:hidden}.progress i{display:block;height:100%;border-radius:inherit;background:var(--green2)}.task-list{display:grid;gap:10px}.task{display:grid;grid-template-columns:auto 1fr auto;gap:13px;align-items:center;padding:13px 14px;border:1px solid var(--line);border-radius:13px;background:white}.task.done{opacity:.55}.task.done .task-title{text-decoration:line-through}.check{appearance:none;width:21px;height:21px;border:2px solid #b9beb7;border-radius:7px;display:grid;place-content:center}.check:checked{border-color:var(--green);background:var(--green)}.check:checked:after{content:"✓";color:white;font-size:13px;font-weight:900}.task-title{font-size:13px;font-weight:750}.task-meta{margin-top:2px;color:var(--muted);font-size:10px}.empty{padding:35px 15px;text-align:center;color:var(--muted)}.empty b{display:block;margin-bottom:7px;font-size:28px}.risk{padding:15px;border-radius:13px;background:var(--soft)}.risk.yellow{background:var(--orangeSoft)}.risk-head{display:flex;justify-content:space-between;font-size:12px;font-weight:800}.risk p{margin:7px 0 0;color:#53645a;font-size:11px}.module-list{display:grid;gap:14px}.module-row{display:grid;grid-template-columns:78px 1fr 42px;align-items:center;gap:10px;font-size:11px}.module-row b{text-align:right}.section-head{align-items:end;margin-bottom:18px}.section-head h2{margin:0 0 4px;font-size:25px}.filters{display:flex;gap:8px;flex-wrap:wrap}.filter{padding:7px 11px;border:1px solid var(--line);border-radius:99px;background:var(--card);font-size:11px}.filter.active{border-color:var(--green);background:var(--green);color:white}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px}th{padding:10px;color:var(--muted);font-weight:600;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}td{padding:13px 10px;border-bottom:1px solid #ecece6}tr:last-child td{border-bottom:0}.score{font:700 17px Georgia,serif}.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}.day{padding:11px 6px;text-align:center;border:1px solid var(--line);border-radius:12px}.day.today{border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green)}.day small,.day b{display:block}.day small{color:var(--muted);font-size:9px}.day b{margin-top:5px;font:700 17px Georgia,serif}.day i{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--orange)}.setting{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:15px 0;border-bottom:1px solid var(--line)}.setting:last-child{border:0}.setting p{margin:3px 0 0;color:var(--muted);font-size:10px}.modal-backdrop{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:20px;background:#0e1d1494;backdrop-filter:blur(5px)}.modal{width:min(700px,100%);max-height:88vh;overflow:auto;padding:25px;border-radius:22px;background:var(--card);box-shadow:0 30px 90px #0004}.modal-head{display:flex;align-items:start;justify-content:space-between;margin-bottom:20px}.modal-head h2{margin:0 0 4px}.modal-head p{margin:0;color:var(--muted);font-size:11px}.close{width:32px;height:32px;border:0;border-radius:50%;background:#eceee8}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:11px;font-weight:750}.field input,.field select,.field textarea{width:100%;padding:10px 11px;border:1px solid #d4d7cf;border-radius:9px;background:white;color:var(--ink);outline:none}.field textarea{min-height:85px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--soft)}.form-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:22px}.welcome{text-align:center}.welcome .brand-badge{display:grid;place-items:center;width:48px;height:48px;margin:0 auto 13px;border-radius:14px;background:var(--gold);color:var(--green);font:800 24px serif}.welcome h2{margin:0 0 7px;font-size:27px}.welcome p{max-width:430px;margin:0 auto 22px;color:var(--muted);font-size:12px}.toast{position:fixed;z-index:200;left:50%;bottom:28px;opacity:0;transform:translate(-50%,30px);padding:10px 16px;border-radius:9px;background:#17291e;color:white;font-size:12px;pointer-events:none;transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}.mobile-nav{display:none}
+@media(max-width:980px){.grid.stats{grid-template-columns:repeat(2,1fr)}.grid.two{grid-template-columns:1fr}}
+@media(max-width:720px){.shell{display:block}.sidebar{display:none}.topbar{min-height:86px;padding:17px 17px 14px}.saved{display:none}.top-actions .btn{padding:8px 10px;font-size:11px}.view{padding:18px 14px 90px}.hero{grid-template-columns:1fr;padding:22px 19px;gap:17px}.countdown{text-align:left}.countdown strong{display:inline;margin-right:8px;font-size:40px}.grid.stats{gap:9px}.stat{padding:14px}.calendar{grid-template-columns:repeat(7,68px);overflow-x:auto}.section-head{align-items:start;flex-direction:column}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.mobile-nav{position:fixed;z-index:50;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(5,1fr);padding:7px 6px max(7px,env(safe-area-inset-bottom));border-top:1px solid var(--line);background:#fffefaf5;backdrop-filter:blur(12px)}.mobile-nav .nav-item{display:grid;place-items:center;gap:0;padding:4px;color:var(--muted);font-size:9px}.mobile-nav .nav-item.active{background:transparent;color:var(--green)}}
+
+/* M3 周计划：手机优先视觉 */
+:root{--indigo:#7d89b5;--indigo2:#96a1c7;--blue:#7fa4d8;--module-green:#79b99a;--module-orange:#e7ae76;--module-purple:#9a8bc5;--module-red:#e58d91}
+body{background:#fcfbf8}.sidebar{background:linear-gradient(180deg,#7482ac,#909bc0)}.nav-item:hover,.nav-item.active{background:#ffffff30}.btn{background:var(--indigo)}.btn:hover{background:var(--indigo2)}.text-btn{color:#6674a6}.progress i{background:var(--indigo2)}
+.plan-layout{display:grid;grid-template-columns:minmax(0,1fr) 370px;gap:18px;margin-top:18px;align-items:start}.plan-days{margin-top:0}.week-card{margin-top:0}.capacity-card{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:14px}.capacity-card>div{position:relative;min-height:92px}.capacity-card>div+div{border-left:1px solid var(--line);padding-left:24px}.capacity-card span{display:block;color:var(--muted);font-size:11px}.capacity-card strong{display:block;margin:4px 0 8px;color:var(--indigo);font:700 30px Georgia,serif}.capacity-card strong small{margin-left:5px;color:var(--ink);font:500 11px sans-serif}.capacity-card>div>small{color:var(--muted);font-size:9px}.capacity-ring{position:absolute;right:8px;top:4px;display:grid;place-items:center;width:66px;height:66px;border-radius:50%;background:conic-gradient(var(--indigo) var(--p),#e8e9ef 0)}.capacity-ring:after{content:"";position:absolute;width:50px;height:50px;border-radius:50%;background:var(--card)}.capacity-ring b{position:relative;z-index:1;color:var(--indigo);font-size:11px}.day-plan:not(.current-day){display:none}.timeline{display:grid;gap:8px}.timeline-item{display:grid;grid-template-columns:50px 12px 1fr;align-items:center;gap:8px}.timeline-item time{color:#53607b;font-size:11px}.timeline-item>i{position:relative;width:9px;height:9px;border:2px solid currentColor;border-radius:50%}.timeline-item>i:after{content:"";position:absolute;left:2px;top:9px;width:1px;height:58px;background:#d7dbe7}.timeline-item:last-child>i:after{display:none}.timeline-item label{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:12px;border:1px solid currentColor;border-radius:11px;background:#fff;cursor:pointer}.timeline-item label span{min-width:0}.timeline-item label strong,.timeline-item label small{display:block}.timeline-item label strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink);font-size:12px}.timeline-item label small{margin-top:2px;color:var(--muted);font-size:9px}.timeline-item label em{padding:3px 7px;border-radius:99px;background:currentColor;color:white;font-size:9px;font-style:normal}.timeline-item.blue{color:var(--blue)}.timeline-item.green{color:var(--module-green)}.timeline-item.orange{color:var(--module-orange)}.timeline-item.purple{color:var(--module-purple)}.timeline-item.red{color:var(--module-red)}.timeline-item.navy{color:var(--indigo)}.timeline-item.gray{color:#7c8391}.timeline-item.done label{opacity:.55}.weekly-targets{position:sticky;top:18px}.weekly-target{display:grid;grid-template-columns:1.2fr repeat(3,1fr);gap:6px;align-items:center;padding:11px 0;border-bottom:1px solid #ecece6;font-size:10px}.weekly-target span{color:var(--muted);text-align:right}.weekly-targets>.btn{width:100%;margin-top:16px}
+.target-summary{margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}.target-summary h3{margin:0 0 8px}.target-summary>div{display:flex;justify-content:space-between;gap:10px;padding:6px 0;font-size:10px}.target-title{display:flex;align-items:end;justify-content:space-between;margin-top:8px}.target-title small{color:var(--muted);font-weight:400}.target-editor{overflow:hidden;border:1px solid var(--line);border-radius:12px;background:white}.target-row{display:grid;grid-template-columns:1.1fr 1fr 1fr 1.2fr;gap:10px;align-items:center;padding:9px 11px;border-bottom:1px solid #ecece6}.target-row:last-child{border:0}.target-row>strong{font-size:11px}.target-row label{position:relative}.target-row label input{padding:8px 32px 8px 8px}.target-row label span{position:absolute;right:8px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:9px}.target-header{background:#f1f2f6;color:var(--muted);font-size:9px}.target-hint{display:block;margin-top:2px;color:var(--muted);font-size:9px}.below{color:var(--red)!important}.module-row{grid-template-columns:78px 1fr 80px}.module-row b small{color:var(--muted);font-weight:400}
+
+@media(max-width:980px){.plan-layout{grid-template-columns:1fr}.weekly-targets{position:static}}
+@media(max-width:720px){
+  .topbar{background:#fff;border-bottom:0}.topbar h1{font-size:23px}.topbar p{font-size:10px}.view{padding:10px 12px 106px}.card{border-radius:14px;box-shadow:0 3px 14px #20284d0b}.plan-heading{display:none}.week-card{padding:12px 8px}.calendar{grid-template-columns:repeat(7,1fr);gap:3px;overflow:visible}.day{padding:8px 2px;border:0;border-radius:10px}.day.today{border:0;background:var(--indigo);color:white;box-shadow:none}.day.today small{color:#ffffffb8}.day i{background:var(--module-orange)}.capacity-card{grid-template-columns:1fr 1fr;gap:14px;padding:16px;margin-top:10px}.capacity-card>div+div{padding-left:14px}.capacity-card strong{font-size:25px}.capacity-ring{width:56px;height:56px}.capacity-ring:after{width:43px;height:43px}.plan-layout{display:block;margin-top:10px}.day-plan{padding:15px}.day-plan .card-head{margin-bottom:13px}.timeline-item{grid-template-columns:42px 9px 1fr;gap:6px}.timeline-item>i{width:8px;height:8px}.timeline-item label{padding:10px 9px;gap:8px}.timeline-item label .check{display:none}.timeline-item label em{max-width:54px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.weekly-targets{margin-top:10px;padding:15px}.weekly-target{grid-template-columns:1.25fr repeat(3,1fr);padding:9px 0}.weekly-targets>.btn{padding:9px}.target-title{align-items:start;flex-direction:column;gap:3px}.target-editor{overflow-x:auto}.target-row{min-width:560px}.mobile-nav{min-height:76px;padding:8px 8px max(9px,env(safe-area-inset-bottom));background:#fff;border-top:1px solid #e2e4ec;box-shadow:0 -5px 22px #1a24500d}.mobile-nav .nav-item{min-height:54px;gap:3px;padding:5px 3px;font-size:11px;font-weight:650}.mobile-nav .nav-item i{display:grid;place-items:center;width:34px;height:27px;font-size:18px}.mobile-nav .nav-item.active{color:var(--indigo)}.mobile-nav .nav-item.active i{width:36px;height:28px;border-radius:9px;background:#eef0ff}.modal{padding:20px 16px;border-radius:18px}.target-summary>div b{text-align:right}
+}
+
+/* M3 总览 */
+.overview-head{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 27px;border:1px solid #8997c4;border-radius:18px;background:linear-gradient(135deg,#8492c1,#a6b0d2);color:white;box-shadow:0 8px 24px #6574aa20}.overview-head>div>span{color:#f0f2ff;font-size:10px;letter-spacing:.08em}.overview-head h2{margin:5px 0 6px;font-size:25px}.overview-head p{margin:0;color:#ffffffc7;font-size:11px}.overview-countdown{min-width:150px;text-align:right}.overview-countdown small{display:block;color:#ffffffc2;font-size:10px}.overview-countdown strong{margin-left:4px;color:white;font:700 49px Georgia,serif}.overview-countdown span{margin-left:5px;color:#f3f4ff}
+.overview-metrics{display:grid;grid-template-columns:1.05fr 1.25fr 1fr;gap:14px;margin-top:14px}.overview-metrics>article{min-height:118px;padding:18px;border:1px solid var(--line);border-radius:15px;background:var(--card)}.overview-metrics>article>span{color:var(--muted);font-size:10px}.overview-metrics>article>strong{display:block;margin:9px 0;color:var(--indigo);font:700 25px Georgia,serif}.overview-metrics>article>strong small{color:var(--muted);font:500 10px sans-serif}.overview-metrics>article>p{margin:0;color:var(--muted);font-size:10px}.today-ring{position:relative;overflow:hidden;background:var(--card)!important}.today-ring:before{content:"";position:absolute;left:50%;top:50%;width:96px;height:96px;transform:translate(-50%,-50%);border-radius:50%;background:conic-gradient(var(--indigo) var(--p),#e8e9f0 0)}.today-ring:after{content:"";position:absolute;left:50%;top:50%;width:76px;height:76px;transform:translate(-50%,-50%);border-radius:50%;background:var(--card)}.today-ring>div{position:relative;z-index:1;display:grid;place-items:center;align-content:center;height:100%;text-align:center}.today-ring small,.today-ring span{color:var(--muted);font-size:9px}.today-ring strong{color:var(--indigo);font:700 27px Georgia,serif}
+.goal-section{margin-top:14px}.goal-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.goal-card{position:relative;padding:16px 12px;border:1px solid currentColor;border-radius:12px;background:white;color:var(--indigo);text-align:center}.goal-card>i{display:grid;place-items:center;width:32px;height:32px;margin:0 auto 10px;border-radius:9px;background:currentColor;color:white;font-size:13px;font-style:normal;font-weight:800}.goal-card>b,.goal-card>span,.goal-card>small{display:block}.goal-card>b{margin-bottom:8px;color:var(--ink);font-size:13px}.goal-card>span{color:var(--muted);font-size:11px;line-height:1.7}.goal-card>small{margin-top:9px;padding-top:8px;border-top:1px solid #ececf1;color:currentColor;font-weight:700;font-size:10px}.goal-card.blue{color:var(--blue)}.goal-card.green{color:var(--module-green)}.goal-card.orange{color:var(--module-orange)}.goal-card.purple{color:var(--module-purple)}.goal-card.red{color:var(--module-red)}
+.overview-layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(300px,.75fr);gap:14px;margin-top:14px}.overview-side{display:grid;gap:14px}.future-row{display:flex;justify-content:space-between;margin:12px 0 5px;font-size:10px}.future-row b{color:var(--indigo)}.future-progress>p{margin:14px 0 0;padding:10px;border-radius:9px;background:#f1f2f8;color:var(--muted);font-size:10px}.review-reminder .card-head>strong{color:var(--module-red);font:700 30px Georgia,serif}.review-reminder>div:not(.card-head){display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid #eee}.review-reminder>div p{margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px}.review-reminder>.btn{width:100%;margin-top:13px}.review-clear{color:var(--muted);font-size:10px}
+.score-target-card,.mock-target{display:grid;grid-template-columns:1.15fr repeat(3,1fr);gap:0;margin-top:14px;padding:16px 19px;border:1px solid #e1e4ef;border-radius:15px;background:#f6f7fc}.score-target-card>div,.mock-target>div{padding:4px 16px;border-left:1px solid #e0e3ee}.score-target-card>div:first-child,.mock-target>div:first-child{padding-left:0;border-left:0}.score-target-card span,.mock-target span{display:block;color:var(--muted);font-size:9px}.score-target-card strong{color:#6573a4;font:700 28px Georgia,serif}.score-target-card strong small{font:500 10px sans-serif}.score-target-card b,.mock-target b,.mock-target strong{display:block;margin-top:4px;color:#4f5d8b}.score-target-card>div>small{display:block;margin-top:3px;color:var(--muted);font-size:8px}
+
+@media(max-width:980px){.overview-layout{grid-template-columns:1fr}.goal-strip{display:flex;flex-wrap:wrap;justify-content:center}.goal-card{flex:0 1 calc(50% - 10px);min-width:170px;padding:20px 16px}.goal-card>i{width:36px;height:36px}.goal-card>b{font-size:15px}.goal-card>span{font-size:12px}.goal-card>small{font-size:11px}}
+@media(max-width:720px){
+  .overview-head{padding:18px;border-radius:15px}.overview-head h2{font-size:19px}.overview-head p{font-size:9px}.overview-countdown{min-width:78px}.overview-countdown strong{font-size:39px}.overview-metrics{grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}.overview-metrics>article{min-height:105px;padding:14px}.today-ring{grid-row:span 2;min-height:219px!important}.today-ring:before{width:126px;height:126px}.today-ring:after{width:98px;height:98px}.overview-metrics>article:nth-child(3){min-height:105px}.score-target-card{grid-template-columns:1fr 1fr;margin-top:9px;padding:12px}.score-target-card>div{padding:8px;border-left:0}.score-target-card>div:nth-child(even){border-left:1px solid #e0e3ee}.score-target-card>div:nth-child(n+3){border-top:1px solid #e0e3ee}.goal-section{margin-top:9px;padding:14px}.goal-strip{display:flex;flex-wrap:nowrap;justify-content:start;gap:8px;overflow-x:auto;padding-bottom:4px;scroll-snap-type:x mandatory}.goal-card{display:flex;flex:0 0 140px;min-width:140px;min-height:190px;padding:16px 12px;align-items:center;justify-content:center;flex-direction:column;scroll-snap-align:start}.goal-card>i{width:32px;height:32px}.goal-card>b{font-size:13px}.goal-card>span{font-size:11px}.goal-card>small{width:100%;font-size:10px}.overview-layout{display:block;margin-top:9px}.overview-tasks{padding:14px}.overview-side{margin-top:9px}.future-progress,.review-reminder{padding:14px}.overview-tasks .timeline-item label em{display:none}
+}
+
+/* 周计划 / 月计划 */
+.plan-head-actions{display:flex;align-items:center;gap:10px}.plan-switcher{display:inline-flex;padding:3px;border:1px solid #dfe2ec;border-radius:10px;background:#f4f5f9}.plan-switcher button{border:0;border-radius:7px;padding:7px 14px;background:transparent;color:var(--muted);font-size:11px}.plan-switcher button.active{background:white;color:#53618f;box-shadow:0 2px 8px #3c487014;font-weight:700}.mobile-plan-switcher{display:none}.month-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.month-summary article{padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:var(--card)}.month-summary span{display:block;color:var(--muted);font-size:10px}.month-summary strong{display:block;margin-top:6px;color:#6573a4;font:700 25px Georgia,serif}.month-summary strong small{font:500 9px sans-serif}.month-card{margin-top:14px;padding:18px}.month-toolbar{display:flex;align-items:center;justify-content:center;gap:20px;margin-bottom:14px}.month-toolbar h3{margin:0;min-width:110px;text-align:center}.month-arrow{display:grid;place-items:center;width:30px;height:30px;border:1px solid var(--line);border-radius:9px;background:white;color:#6573a4;font-size:20px}.month-weekdays,.month-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.month-weekdays span{padding:7px;text-align:center;color:var(--muted);font-size:9px}.month-day{position:relative;min-height:105px;padding:9px;border:1px solid #e4e5ec;border-radius:10px;background:white;text-align:left}.month-day.blank{border:0;background:transparent}.month-day.today{border-color:#8e9ac4;box-shadow:inset 0 0 0 1px #8e9ac4}.month-day>b{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;color:#3d486e}.month-day.today>b{background:#7d89b5;color:white}.month-day>small{float:right;color:var(--muted);font-size:8px}.month-day>span{display:flex;gap:3px;margin:5px 0}.month-dot{width:5px;height:5px;border-radius:50%;background:currentColor}.month-dot.blue{color:var(--blue)}.month-dot.green{color:var(--module-green)}.month-dot.orange{color:var(--module-orange)}.month-dot.purple{color:var(--module-purple)}.month-dot.red{color:var(--module-red)}.month-day>em{display:block;overflow:hidden;margin-top:3px;color:var(--muted);font-size:8px;font-style:normal;text-overflow:ellipsis;white-space:nowrap}.month-day>u{color:#7d89b5;font-size:8px;text-decoration:none}.month-note{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:14px}.month-note h3{margin:0 0 3px}.month-note p{margin:0;color:var(--muted);font-size:10px}
+
+@media(max-width:720px){
+  .plan-head-actions{display:none}.mobile-plan-switcher{display:block;margin-bottom:10px}.mobile-plan-switcher .plan-switcher{display:grid;grid-template-columns:1fr 1fr;width:100%}.mobile-plan-switcher .plan-switcher button{padding:9px}.month-summary{grid-template-columns:1fr 1fr;gap:8px}.month-summary article{padding:12px}.month-summary strong{font-size:21px}.month-card{margin-top:9px;padding:10px 6px}.month-weekdays,.month-grid{gap:2px}.month-weekdays span{padding:5px 1px}.month-day{min-height:57px;padding:5px 3px;border-radius:7px}.month-day>b{width:20px;height:20px;font-size:10px}.month-day>small{font-size:7px}.month-day>span{justify-content:center;margin:4px 0}.month-day>em,.month-day>u{display:none}.month-note{align-items:stretch;flex-direction:column;margin-top:9px;padding:14px}.month-note .btn{width:100%}
+}
+
+/* UI 细节统一 */
+.nav-item i svg{display:block;width:18px;height:18px}
+.goal-strip{scrollbar-width:none}
+.goal-strip::-webkit-scrollbar{display:none}
+.goal-card>b,.goal-card>span,.goal-card>small{flex:0 0 auto}
+@media(max-width:720px){
+  .topbar .btn{min-height:42px}
+  .card-head .text-btn{min-height:38px;padding:8px}
+  .weekly-targets>.btn,.month-note>.btn{min-height:44px}
+  .mobile-nav .nav-item i{display:grid;place-items:center;width:36px;height:30px}
+  .mobile-nav .nav-item i svg{width:24px;height:24px}
+  .mobile-nav .nav-item.active i{width:36px;height:30px}
+  .goal-card>i{display:none}
+  .goal-card{justify-content:center;padding-top:20px;padding-bottom:20px}
+  .goal-card>b{margin-top:0}
+  .goal-card>small{margin-bottom:0}
+}
+
+/* 个人版能力规划：先做自用体验，不接真实支付 */
+.premium-card{margin-top:14px;border-color:#e7e1d1;background:linear-gradient(135deg,#fffdf8,#f7f4ff)}
+.premium-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
+.premium-top span,.locked-panel span{display:inline-flex;align-items:center;height:22px;padding:0 9px;border-radius:99px;background:#fff1d9;color:#9a6830;font-size:10px;font-weight:800;letter-spacing:.03em}
+.premium-top h3,.locked-panel h3{margin:7px 0 3px;font-size:16px}
+.premium-top p,.locked-panel p{margin:0;color:var(--muted);font-size:11px}
+.premium-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.premium-grid article{position:relative;min-height:104px;padding:14px 12px;border:1px solid #e7e4dc;border-radius:13px;background:#ffffffb8}
+.premium-grid b,.premium-grid small,.premium-grid em{display:block}
+.premium-grid b{color:#1f2b24;font-size:13px}
+.premium-grid small{margin-top:7px;color:var(--muted);font-size:10px;line-height:1.55}
+.premium-grid em{position:absolute;right:10px;bottom:10px;padding:3px 7px;border-radius:99px;background:#eef0ff;color:#6674a6;font-size:9px;font-style:normal;font-weight:800}
+.locked-panel{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:14px;border-style:dashed;background:#fffefa}
+.locked-panel>div{min-width:0}
+.premium-modal-list{display:grid;gap:10px}
+.premium-modal-list article{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:13px 14px;border:1px solid var(--line);border-radius:13px;background:white}
+.premium-modal-list b{font-size:13px}
+.premium-modal-list p{margin:4px 0 0;color:var(--muted);font-size:11px}
+.premium-modal-list span{flex:0 0 auto;padding:3px 8px;border-radius:99px;background:#eef0ff;color:#6674a6;font-size:10px;font-weight:800}
+.pay-roadmap{margin-top:14px;padding:15px;border-radius:14px;background:#f3f4fa}
+.pay-roadmap h3{margin:0 0 8px}
+.pay-roadmap p{margin:5px 0;color:var(--muted);font-size:11px}
+@media(max-width:980px){.premium-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){
+  .premium-card,.locked-panel{margin-top:9px;padding:14px}
+  .premium-top{align-items:stretch;flex-direction:column;margin-bottom:11px}
+  .premium-top .btn{width:100%;min-height:42px}
+  .premium-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .premium-grid article{min-height:118px;padding:12px 10px}
+  .premium-grid b{font-size:12px}
+  .premium-grid small{font-size:9px}
+  .locked-panel{align-items:stretch;flex-direction:column}
+  .locked-panel .btn{width:100%;min-height:42px}
+}
+
+</style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="brand" href="#dashboard"><b>岸</b><span><strong>上岸轨迹</strong><small>备考驾驶舱</small></span></a>
+      <nav id="side-nav"></nav>
+      <div class="side-foot"><span>数据仅保存在本机</span><button data-action="export">导出备份 →</button></div>
+    </aside>
+    <main>
+      <header class="topbar">
+        <div><p id="date-label"></p><h1 id="page-title">总览</h1></div>
+        <div class="top-actions"><span class="saved">● 已保存到本机</span><button class="btn outline" data-action="practice">＋ 记录练习</button></div>
+      </header>
+      <section id="view" class="view"></section>
+    </main>
+  </div>
+  <nav id="mobile-nav" class="mobile-nav"></nav>
+  <div id="modal-root"></div>
+  <input id="import-file" type="file" accept="application/json" hidden>
+  <div id="toast" class="toast"></div>
+  <script>
+const KEY = "shoreline-gongkao-v1";
+const MODULES = ["资料分析", "言语理解", "政治理论", "判断推理", "数量关系", "申论"];
+const NAV = [
+  ["dashboard", "home", "总览"], ["plan", "calendar", "计划"], ["records", "practice", "练习"],
+  ["mistakes", "review", "复盘"], ["mocks", "chart", "模考"], ["settings", "settings", "设置"]
+];
+const ICONS = {
+  home: `<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-7h6v7"/>`,
+  calendar: `<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/><path d="M8 14h2M14 14h2M8 18h2M14 18h2"/>`,
+  practice: `<path d="M4 4h10v16H4z"/><path d="M8 8h4M8 12h4"/><path d="m14 17 5.5-5.5 2 2L16 19l-3 1z"/>`,
+  review: `<path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H12v18H7.5A3.5 3.5 0 0 0 4 23z"/><path d="M20 5.5A3.5 3.5 0 0 0 16.5 2H12v18h4.5A3.5 3.5 0 0 1 20 23z"/><path d="m15 9 1.5 1.5L19 8"/>`,
+  chart: `<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/><path d="m3 7 6-4 6 6 6-5"/>`,
+  settings: `<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21H9.6v-.1A1.7 1.7 0 0 0 8.5 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3V9.6h.1A1.7 1.7 0 0 0 4.6 8.5a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3h4v.1A1.7 1.7 0 0 0 15.5 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9c.37.2.7.5.9.9.16.3.23.66.2 1V13c.03.34-.04.7-.2 1-.2.4-.53.7-.9 1z"/>`
+};
+const iconSvg = name => `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICONS[name]}</svg>`;
+const $ = s => document.querySelector(s);
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const pad = n => String(n).padStart(2, "0");
+const iso = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const today = () => iso(new Date());
+const esc = v => String(v ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+const days = (a, b) => Math.max(0, Math.ceil((new Date(`${b}T12:00`) - new Date(`${a}T12:00`)) / 864e5));
+const niceDate = v => { const d = new Date(`${v}T12:00`); return `${d.getMonth() + 1}月${d.getDate()}日`; };
+const clamp = n => Math.max(0, Math.min(100, n));
+
+function freshState() {
+  const exam = new Date(); exam.setMonth(exam.getMonth() + 4);
+  const targets = {
+    "资料分析": { questions: 20, accuracy: 85, minutes: 25 },
+    "言语理解": { questions: 40, accuracy: 80, minutes: 35 },
+    "政治理论": { questions: 20, accuracy: 80, minutes: 15 },
+    "判断推理": { questions: 40, accuracy: 85, minutes: 35 },
+    "数量关系": { questions: 15, accuracy: 70, minutes: 20 }
+  };
+  return {
+    version: 1,
+    profile: { name: "", exam: "国考", province: "", examDate: iso(exam), weekday: 150, weekend: 300, stage: "强化提升", targetXingce: 75, targetShenlun: 70, targets, ready: false },
+    tasks: [], records: [], mistakes: [], mocks: []
+  };
+}
+
+function read() {
+  try {
+    const data = JSON.parse(localStorage.getItem(KEY));
+    if (data?.version !== 1) return freshState();
+    const base = freshState();
+    return {
+      ...base, ...data,
+      profile: {
+        ...base.profile, ...data.profile,
+        targets: { ...base.profile.targets, ...(data.profile?.targets || {}) }
+      }
+    };
+  } catch { return freshState(); }
+}
+
+let state = read();
+let page = location.hash.slice(1) || (window.matchMedia("(max-width: 720px)").matches ? "plan" : "dashboard");
+let recordFilter = "全部";
+let planMode = "week";
+let planMonthOffset = 0;
+
+function save(message) {
+  localStorage.setItem(KEY, JSON.stringify(state));
+  if (message) toast(message);
+}
+
+function toast(message) {
+  const el = $("#toast"); el.textContent = message; el.classList.add("show");
+  clearTimeout(toast.timer); toast.timer = setTimeout(() => el.classList.remove("show"), 2200);
+}
+
+function makePlan() {
+  const t = state.profile.targets;
+  const base = [
+    [`资料分析专项 ${t["资料分析"].questions} 题`, "资料分析", t["资料分析"].minutes],
+    [`言语理解专项 ${t["言语理解"].questions} 题`, "言语理解", t["言语理解"].minutes],
+    [`政治理论专项 ${t["政治理论"].questions} 题`, "政治理论", t["政治理论"].minutes],
+    [`判断推理专项 ${t["判断推理"].questions} 题`, "判断推理", t["判断推理"].minutes],
+    [`数量关系专项 ${t["数量关系"].questions} 题`, "数量关系", t["数量关系"].minutes],
+    ["申论小题精练 1 道", "申论", 60],
+    ["错题回看与方法复盘", "复盘", 35]
+  ];
+  const generated = [];
+  const length = Math.min(120, Math.max(14, days(today(), state.profile.examDate)));
+  for (let i = 0; i < length; i++) {
+    const date = new Date(); date.setDate(date.getDate() + i);
+    const cap = [0, 6].includes(date.getDay()) ? state.profile.weekend : state.profile.weekday;
+    for (let j = 0; j < (cap >= 240 ? 3 : 2); j++) {
+      const t = base[(i * 2 + j) % base.length];
+      generated.push({ id: uid(), date: iso(date), title: t[0], module: t[1], minutes: t[2], done: false, fixed: false });
+    }
+    if (i > 0 && i % 14 === 0) generated.push({ id: uid(), date: iso(date), title: "行测阶段模考 1 套", module: "模考", minutes: 120, done: false, fixed: true });
+  }
+  state.tasks = generated;
+}
+
+function stats() {
+  const due = state.tasks.filter(t => t.date <= today());
+  const todayTasks = state.tasks.filter(t => t.date === today());
+  const done = state.tasks.filter(t => t.done);
+  const recentStart = new Date(); recentStart.setDate(recentStart.getDate() - 13);
+  const recent = state.tasks.filter(t => t.date >= iso(recentStart) && t.date < today());
+  const recentRate = recent.length ? recent.filter(t => t.done).length / recent.length : 1;
+  const left = days(today(), state.profile.examDate);
+  const remaining = state.tasks.filter(t => !t.done && t.date >= today()).reduce((n, t) => n + t.minutes, 0);
+  const capacity = Math.max(1, left * (state.profile.weekday * 5 + state.profile.weekend * 2) / 7);
+  const load = remaining / capacity / Math.max(.35, recentRate);
+  return {
+    todayTasks, done,
+    todayRate: todayTasks.length ? Math.round(todayTasks.filter(t => t.done).length / todayTasks.length * 100) : 0,
+    planRate: due.length ? Math.round(due.filter(t => t.done).length / due.length * 100) : 0,
+    recentRate: Math.round(recentRate * 100),
+    minutes: state.records.reduce((n, r) => n + r.minutes, 0) + done.reduce((n, t) => n + t.minutes, 0),
+    left, risk: load > 1 ? "red" : load > .82 || recentRate < .65 ? "yellow" : "green"
+  };
+}
+
+function renderNav() {
+  const items = list => list.map(([id, icon, text]) => `<button class="nav-item ${page === id ? "active" : ""}" data-page="${id}"><i>${iconSvg(icon)}</i><span>${text}</span></button>`).join("");
+  $("#side-nav").innerHTML = items(NAV);
+  $("#mobile-nav").innerHTML = items(NAV.slice(0, 5));
+}
+
+function render() {
+  renderNav();
+  const title = { dashboard: "总览", plan: "学习计划", records: "练习记录", mistakes: "错题复盘", mocks: "模考分析", settings: "设置" };
+  $("#page-title").textContent = title[page] || "总览";
+  $("#date-label").textContent = new Intl.DateTimeFormat("zh-CN", { month: "long", day: "numeric", weekday: "long" }).format(new Date());
+  const views = { dashboard, plan, records, mistakes, mocks, settings };
+  $("#view").innerHTML = (views[page] || dashboard)();
+  if (!state.profile.ready) setTimeout(welcome, 30);
+}
+
+const statCard = (label, value, unit, pct) => `<article class="card stat"><div class="label"><span>${label}</span><span class="pill">实时</span></div><strong>${value}</strong><small>${unit}</small><div class="progress" style="margin-top:11px"><i style="width:${clamp(pct)}%"></i></div></article>`;
+
+function taskList(list) {
+  if (!list.length) return `<div class="empty"><b>☕</b>今天还没有任务，给自己安排一个小目标吧。</div>`;
+  return `<div class="task-list">${list.map(t => `<div class="task ${t.done ? "done" : ""}">
+    <input class="check" type="checkbox" data-task="${t.id}" ${t.done ? "checked" : ""}>
+    <div><div class="task-title">${esc(t.title)}</div><div class="task-meta">${esc(t.module)} · ${t.minutes} 分钟${t.fixed ? " · 固定节点" : ""}</div></div>
+    <span class="pill ${t.module === "申论" ? "orange" : ""}">${esc(t.module)}</span></div>`).join("")}</div>`;
+}
+
+function timelineTaskList(list) {
+  if (!list.length) return `<div class="empty"><b>☕</b>这一天暂时没有任务。</div>`;
+  const colors = { "资料分析": "blue", "言语理解": "green", "政治理论": "orange", "判断推理": "purple", "数量关系": "red", "申论": "navy", "复盘": "gray", "模考": "navy" };
+  let cursor = 8 * 60;
+  return `<div class="timeline">${list.map(t => {
+    const start = `${pad(Math.floor(cursor / 60))}:${pad(cursor % 60)}`;
+    cursor += t.minutes;
+    const end = `${pad(Math.floor(cursor / 60))}:${pad(cursor % 60)}`;
+    cursor += 15;
+    return `<div class="timeline-item ${colors[t.module] || "navy"} ${t.done ? "done" : ""}">
+      <time>${start}</time><i></i><label>
+        <input class="check" type="checkbox" data-task="${t.id}" ${t.done ? "checked" : ""}>
+        <span><strong>${esc(t.title)}</strong><small>${start}–${end} · 目标 ${t.minutes} 分钟</small></span>
+        <em>${esc(t.module)}</em>
+      </label>
+    </div>`;
+  }).join("")}</div>`;
+}
+
+function performance() {
+  const data = MODULES.map(module => {
+    const rs = state.records.filter(r => r.module === module);
+    const total = rs.reduce((n, r) => n + r.total, 0);
+    const correct = rs.reduce((n, r) => n + r.correct, 0);
+    const target = state.profile.targets[module]?.accuracy;
+    return { module, total, rate: total ? Math.round(correct / total * 100) : 0, target };
+  }).filter(x => x.total).sort((a, b) => b.rate - a.rate);
+  if (!data.length) return `<div class="empty" style="padding:15px"><b>◌</b>记录练习后，这里会识别强弱项。</div>`;
+  return `<div class="module-list">${data.map(x => `<div class="module-row"><span>${x.module}</span><div class="progress"><i style="width:${x.rate}%"></i></div><b class="${x.target && x.rate < x.target ? "below" : ""}">${x.rate}%${x.target ? `<small> / ${x.target}%</small>` : ""}</b></div>`).join("")}</div>`;
+}
+
+function moduleGoalCards() {
+  const colors = { "资料分析": "blue", "言语理解": "green", "政治理论": "orange", "判断推理": "purple", "数量关系": "red" };
+  return `<div class="goal-strip">${Object.entries(state.profile.targets).map(([module, target]) => {
+    const records = state.records.filter(r => r.module === module);
+    const total = records.reduce((n, r) => n + r.total, 0);
+    const correct = records.reduce((n, r) => n + r.correct, 0);
+    const actual = total ? Math.round(correct / total * 100) : null;
+    return `<article class="goal-card ${colors[module]}"><i>${module.slice(0, 1)}</i><b>${module}</b>
+      <span>${target.questions} 题</span><span>目标 ${target.accuracy}%</span><span>≤ ${target.minutes} 分钟</span>
+      <small>${actual === null ? "尚未记录" : `当前 ${actual}%`}</small></article>`;
+  }).join("")}</div>`;
+}
+
+const premiumFeatures = [
+  ["本地备份", "定期导出数据文件，换设备时可手动恢复。", "个人版"],
+  ["智能周计划", "按考试日期、目标分数、薄弱模块自动调整每日安排。", "规划中"],
+  ["每周学习报告", "总结正确率、用时、执行率，并提示下周重点。", "规划中"],
+  ["错题深度复盘", "按错因、题型和复习到期日提醒，避免反复踩坑。", "规划中"],
+  ["模考趋势分析", "对比目标分数，查看行测/申论差距与提分方向。", "规划中"],
+  ["报告导出", "导出 PDF/表格，沉淀自己的备考档案。", "规划中"]
+];
+
+function premiumCard(title = "个人版能力规划", subtitle = "当前定位为个人自用，不接入微信支付，重点做好记录、复盘和本地备份。") {
+  return `<section class="card premium-card">
+    <div class="premium-top"><div><span>个人版</span><h3>${title}</h3><p>${subtitle}</p></div><button class="btn small" data-action="premium">查看规划</button></div>
+    <div class="premium-grid">${premiumFeatures.slice(0, 4).map(([name, desc, tag]) => `<article><b>${name}</b><small>${desc}</small><em>${tag}</em></article>`).join("")}</div>
+  </section>`;
+}
+
+function lockedPanel(title, text, action = "查看规划") {
+  return `<section class="card locked-panel"><div><span>规划中</span><h3>${title}</h3><p>${text}</p></div><button class="btn outline small" data-action="premium">${action}</button></section>`;
+}
+
+function dashboard() {
+  const s = stats();
+  const latestMock = [...state.mocks].sort((a, b) => b.date.localeCompare(a.date))[0];
+  const targetScore = Number(state.profile.targetXingce) + Number(state.profile.targetShenlun);
+  const latestScore = latestMock ? Number(latestMock.xingce) + Number(latestMock.shenlun) : null;
+  const riskName = { green: "节奏稳健", yellow: "需要提速", red: "进度告急" }[s.risk];
+  const riskText = s.risk === "green" ? "按近 14 天节奏，当前计划可在考试前完成。继续保持，不必盲目加量。"
+    : s.risk === "yellow" ? `近期执行率为 ${s.recentRate}%，本周优先补齐高价值专项。`
+    : "剩余任务超过未来容量，需要减少低优先级任务或增加学习时间。";
+  const todayMinutes = s.todayTasks.reduce((n, t) => n + t.minutes, 0);
+  const doneMinutes = s.todayTasks.filter(t => t.done).reduce((n, t) => n + t.minutes, 0);
+  const dueReviews = state.mistakes.filter(m => !m.done && (!m.reviewDate || m.reviewDate <= today()));
+  return `<section class="overview-head">
+    <div><span>${esc(state.profile.stage)} · ${esc(state.profile.exam)}主线</span><h2>${state.profile.name ? `${esc(state.profile.name)}，` : ""}今天也向目标靠近一点。</h2><p>${niceDate(state.profile.examDate)} 笔试 · ${state.profile.province || "目标地区待设置"} · 目标 ${targetScore} 分</p></div>
+    <div class="overview-countdown"><small>考试倒计时</small><strong>${s.left}</strong><span>天</span></div>
+  </section>
+  <section class="overview-metrics">
+    <article class="today-ring" style="--p:${s.todayRate * 3.6}deg"><div><small>今日完成</small><strong>${s.todayRate}%</strong><span>${s.todayTasks.filter(t => t.done).length} / ${s.todayTasks.length} 项</span></div></article>
+    <article><span>今日用时</span><strong>${doneMinutes}<small> / ${todayMinutes || 0} 分钟</small></strong><div class="progress"><i style="width:${clamp(doneMinutes / Math.max(1, todayMinutes) * 100)}%"></i></div></article>
+    <article><span>连续执行</span><strong>${Math.max(1, Math.round(s.minutes / Math.max(60, state.profile.weekday)))}<small> 天</small></strong><p>近 14 天执行率 ${s.recentRate}%</p></article>
+  </section>
+  <section class="score-target-card"><div><span>笔试目标分数</span><strong>${targetScore}<small> 分</small></strong></div>
+    <div><span>行测目标</span><b>${state.profile.targetXingce} 分</b></div><div><span>申论目标</span><b>${state.profile.targetShenlun} 分</b></div>
+    <div><span>最近模考</span><b>${latestScore === null ? "尚未录入" : `${latestScore} 分`}</b><small>${latestScore === null ? "录入模考后计算差距" : latestScore >= targetScore ? `已超过目标 ${latestScore - targetScore} 分` : `距离目标 ${targetScore - latestScore} 分`}</small></div>
+  </section>
+  ${premiumCard("个人版能力规划", "当前先服务你自己：记录目标、执行计划、复盘错题、沉淀模考数据。")}
+  <section class="card goal-section"><div class="card-head"><div><h3>五大模块今日目标</h3><p>题量 · 正确率 · 完成时间</p></div><button class="text-btn" data-action="profile">调整目标</button></div>${moduleGoalCards()}</section>
+  <div class="overview-layout">
+    <section class="card overview-tasks"><div class="card-head"><div><h3>今日任务</h3><p>按计划逐项完成</p></div><button class="text-btn" data-page="plan">查看周计划</button></div>${timelineTaskList(s.todayTasks)}</section>
+    <div class="overview-side">
+      <section class="card future-progress"><div class="card-head"><div><h3>未来进度</h3><p>按当前节奏预测</p></div><span class="pill ${s.risk !== "green" ? "orange" : ""}">${riskName}</span></div>
+        <div class="future-row"><span>阶段计划</span><b>${s.planRate}%</b></div><div class="progress"><i style="width:${s.planRate}%"></i></div>
+        <div class="future-row"><span>近期执行</span><b>${s.recentRate}%</b></div><div class="progress"><i style="width:${s.recentRate}%"></i></div><p>${riskText}</p></section>
+      <section class="card review-reminder"><div class="card-head"><div><h3>错题复盘</h3><p>到期未复习</p></div><strong>${dueReviews.length}</strong></div>
+        ${dueReviews.length ? dueReviews.slice(0, 3).map(m => `<div><span class="pill">${esc(m.module)}</span><p>${esc(m.summary)}</p></div>`).join("") : `<p class="review-clear">当前没有到期错题，保持住。</p>`}
+        <button class="btn outline" data-page="mistakes">进入复盘</button></section>
+    </div>
+  </div>`;
+}
+
+function monthPlan() {
+  const monthDate = new Date();
+  monthDate.setDate(1);
+  monthDate.setMonth(monthDate.getMonth() + planMonthOffset);
+  const year = monthDate.getFullYear();
+  const month = monthDate.getMonth();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const firstWeekday = new Date(year, month, 1).getDay();
+  const monthPrefix = `${year}-${pad(month + 1)}`;
+  const monthTasks = state.tasks.filter(t => t.date.startsWith(monthPrefix));
+  const doneTasks = monthTasks.filter(t => t.done);
+  const totalMinutes = monthTasks.reduce((n, t) => n + t.minutes, 0);
+  const cells = [
+    ...Array.from({ length: firstWeekday }, () => `<div class="month-day blank"></div>`),
+    ...Array.from({ length: daysInMonth }, (_, index) => {
+      const day = index + 1;
+      const date = `${monthPrefix}-${pad(day)}`;
+      const tasks = monthTasks.filter(t => t.date === date);
+      const completed = tasks.filter(t => t.done).length;
+      return `<button class="month-day ${date === today() ? "today" : ""}" data-task-date="${date}">
+        <b>${day}</b><small>${completed}/${tasks.length}</small>
+        <span>${tasks.slice(0, 3).map(t => `<i class="month-dot ${t.module === "资料分析" ? "blue" : t.module === "言语理解" ? "green" : t.module === "政治理论" ? "orange" : t.module === "判断推理" ? "purple" : "red"}"></i>`).join("")}</span>
+        ${tasks.slice(0, 2).map(t => `<em>${esc(t.title)}</em>`).join("")}${tasks.length > 2 ? `<u>+${tasks.length - 2}</u>` : ""}
+      </button>`;
+    })
+  ].join("");
+  return `<section class="month-summary">
+      <article><span>本月任务</span><strong>${monthTasks.length}<small> 项</small></strong></article>
+      <article><span>已经完成</span><strong>${doneTasks.length}<small> 项</small></strong></article>
+      <article><span>计划时长</span><strong>${(totalMinutes / 60).toFixed(1)}<small> 小时</small></strong></article>
+      <article><span>月完成率</span><strong>${monthTasks.length ? Math.round(doneTasks.length / monthTasks.length * 100) : 0}<small>%</small></strong></article>
+    </section>
+    <section class="card month-card"><div class="month-toolbar"><button class="month-arrow" data-month-shift="-1">‹</button><h3>${year}年${month + 1}月</h3><button class="month-arrow" data-month-shift="1">›</button></div>
+      <div class="month-weekdays">${["日","一","二","三","四","五","六"].map(d => `<span>周${d}</span>`).join("")}</div>
+      <div class="month-grid">${cells}</div>
+    </section>
+    <section class="card month-note"><div><h3>月度规划提示</h3><p>点击任意日期即可添加任务；建议每两周安排一次模考，并为错题复盘预留固定时间。</p></div><button class="btn outline" data-action="task">＋ 添加月度任务</button></section>`;
+}
+
+function plan() {
+  const switcher = `<div class="plan-switcher"><button class="${planMode === "week" ? "active" : ""}" data-plan-mode="week">周计划</button><button class="${planMode === "month" ? "active" : ""}" data-plan-mode="month">月计划</button></div>`;
+  if (planMode === "month") {
+    return `<div class="section-head"><div><h2>计划</h2><p>按周执行，按月校准方向。</p></div>${switcher}</div>${lockedPanel("智能月计划", "根据目标分数、剩余天数和薄弱模块，自动给出本月训练重心。", "预留入口")}${monthPlan()}`;
+  }
+  const s = stats();
+  const futureDates = [...new Set(state.tasks.filter(t => t.date >= today()).map(t => t.date))].slice(0, 14);
+  const week = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(); d.setDate(d.getDate() + i); const date = iso(d);
+    return `<div class="day ${i === 0 ? "today" : ""}"><small>周${"日一二三四五六"[d.getDay()]}</small><b>${d.getDate()}</b>${state.tasks.some(t => t.date === date) ? "<i></i>" : ""}</div>`;
+  }).join("");
+  const todayCapacity = [0, 6].includes(new Date().getDay()) ? state.profile.weekend : state.profile.weekday;
+  const doneMinutes = s.todayTasks.filter(t => t.done).reduce((n, t) => n + t.minutes, 0);
+  const remaining = Math.max(0, todayCapacity - doneMinutes);
+  return `<div class="section-head plan-heading"><div><h2>周计划</h2><p>按时间轴执行今天，按周历掌握未来。</p></div><div class="plan-head-actions">${switcher}<button class="btn" data-action="task">＋ 新建任务</button></div></div>
+    <div class="mobile-plan-switcher">${switcher}</div>
+    <section class="card week-card"><div class="calendar">${week}</div></section>
+    <section class="card capacity-card">
+      <div><span>今日剩余可用时长</span><strong>${remaining}<small>分钟</small></strong><div class="progress"><i style="width:${clamp(doneMinutes / Math.max(1, todayCapacity) * 100)}%"></i></div><small>每日计划 ${todayCapacity} 分钟</small></div>
+      <div><span>任务进度</span><strong>${s.todayTasks.filter(t => t.done).length}<small> / ${s.todayTasks.length} 项</small></strong><div class="capacity-ring" style="--p:${s.todayRate * 3.6}deg"><b>${s.todayRate}%</b></div></div>
+    </section>
+    ${lockedPanel("智能周计划生成", "后续可一键生成本周安排：补弱项、排模考、留复盘，不再手动凑任务。")}
+    <div class="plan-layout"><div class="grid plan-days">
+      ${futureDates.map(date => { const ts = state.tasks.filter(t => t.date === date); return `<section class="card day-plan ${date === today() ? "current-day" : ""}"><div class="card-head"><div><h3>${date === today() ? "今天 · " : ""}${niceDate(date)}</h3><p>${ts.length} 项 · ${ts.reduce((n, t) => n + t.minutes, 0)} 分钟</p></div><button class="text-btn" data-task-date="${date}">添加任务</button></div>${timelineTaskList(ts)}</section>`; }).join("")}
+    </div><aside class="card weekly-targets"><div class="card-head"><div><h3>五大模块目标</h3><p>本周训练标准</p></div><span class="pill">可编辑</span></div>
+      ${Object.entries(state.profile.targets).map(([module, target]) => `<div class="weekly-target"><b>${module}</b><span>${target.questions} 题</span><span>≥ ${target.accuracy}%</span><span>≤ ${target.minutes} 分钟</span></div>`).join("")}
+      <button class="btn outline" data-action="profile">调整目标</button></aside></div>`;
+}
+
+function records() {
+  const list = recordFilter === "全部" ? state.records : state.records.filter(r => r.module === recordFilter);
+  return `<div class="section-head"><div><h2>练习记录</h2><p>记录外部题库 App 的结果，用真实数据看见进步。</p></div><button class="btn" data-action="practice">＋ 记录练习</button></div>
+    <div class="filters">${["全部", ...MODULES].map(m => `<button class="filter ${recordFilter === m ? "active" : ""}" data-filter="${m}">${m}</button>`).join("")}</div>
+    ${lockedPanel("每周学习报告", "把练习记录自动汇总成趋势：哪个模块提分最快，哪个模块还在拖后腿。")}
+    <section class="card" style="margin-top:15px">${list.length ? `<div class="table-wrap"><table><thead><tr><th>日期</th><th>模块</th><th>来源</th><th>题量</th><th>正确率</th><th>用时</th><th></th></tr></thead><tbody>
+    ${[...list].sort((a, b) => b.date.localeCompare(a.date)).map(r => {
+      const target = state.profile.targets[r.module];
+      const rate = Math.round(r.correct / r.total * 100);
+      return `<tr><td>${niceDate(r.date)}</td><td><span class="pill">${r.module}</span></td><td>${esc(r.source)}</td><td>${r.total}${target ? `<small class="target-hint">目标 ${target.questions}</small>` : ""}</td><td><span class="score ${target && rate < target.accuracy ? "below" : ""}">${rate}%</span>${target ? `<small class="target-hint">目标 ${target.accuracy}%</small>` : ""}</td><td>${r.minutes} 分钟${target ? `<small class="target-hint">目标 ${target.minutes} 分钟</small>` : ""}</td><td><button class="text-btn" data-delete-record="${r.id}">删除</button></td></tr>`;
+    }).join("")}</tbody></table></div>` : `<div class="empty"><b>◫</b>还没有记录。做完一组题，就把结果放进来。</div>`}</section>`;
+}
+
+function mistakes() {
+  const reasons = state.mistakes.reduce((a, m) => (a[m.reason] = (a[m.reason] || 0) + 1, a), {});
+  const max = Math.max(1, ...Object.values(reasons));
+  const reasonView = Object.keys(reasons).length ? `<div class="module-list">${Object.entries(reasons).map(([k, v]) => `<div class="module-row"><span>${k}</span><div class="progress"><i style="width:${v / max * 100}%"></i></div><b>${v}</b></div>`).join("")}</div>` : `<div class="empty">暂无数据</div>`;
+  return `<div class="section-head"><div><h2>错题复盘</h2><p>只记录索引和错误原因，不复制商业题库内容。</p></div><button class="btn" data-action="mistake">＋ 添加错题</button></div>
+    <div class="grid two"><section class="card"><div class="card-head"><h3>待复习</h3><span class="pill orange">${state.mistakes.filter(m => !m.done).length} 项</span></div>
+    ${state.mistakes.length ? `<div class="task-list">${state.mistakes.map(m => `<div class="task ${m.done ? "done" : ""}"><input class="check" type="checkbox" data-mistake="${m.id}" ${m.done ? "checked" : ""}><div><div class="task-title">${esc(m.summary)}</div><div class="task-meta">${esc(m.source)} · ${esc(m.reason)}</div></div><span class="pill">${m.module}</span></div>`).join("")}</div>` : `<div class="empty"><b>◎</b>错题不可怕，没有复盘的错题才可惜。</div>`}</section>
+    <section class="card"><div class="card-head"><h3>错误原因分布</h3></div>${reasonView}</section></div>
+    ${lockedPanel("错题深度复盘", "按错因和到期日生成复盘队列，提醒你优先处理反复出错的题型。")}`;
+}
+
+function mocks() {
+  const latest = [...state.mocks].sort((a, b) => b.date.localeCompare(a.date))[0];
+  const targetScore = Number(state.profile.targetXingce) + Number(state.profile.targetShenlun);
+  return `<div class="section-head"><div><h2>模考分析</h2><p>只有真实模考成绩才用于成绩趋势判断。</p></div><button class="btn" data-action="mock">＋ 录入模考</button></div>
+    <div class="grid stats">${statCard("模考次数", state.mocks.length, "次", state.mocks.length * 10)}${statCard("最近行测", latest?.xingce ?? "—", "分", latest?.xingce ?? 0)}${statCard("最近申论", latest?.shenlun ?? "—", "分", latest?.shenlun ?? 0)}${statCard("最近总分", latest ? latest.xingce + latest.shenlun : "—", "分", latest ? (latest.xingce + latest.shenlun) / 2 : 0)}</div>
+    <section class="card mock-target"><div><span>目标总分</span><strong>${targetScore} 分</strong></div><div><span>行测目标</span><b>${state.profile.targetXingce} 分</b></div><div><span>申论目标</span><b>${state.profile.targetShenlun} 分</b></div><div><span>当前差距</span><b>${latest ? `${targetScore - (latest.xingce + latest.shenlun)} 分` : "等待首次模考"}</b></div></section>
+    ${lockedPanel("模考趋势分析", "录入 3 次以上模考后，可生成目标差距、提分路径和下次模考重点。")}
+    <section class="card" style="margin-top:18px">${state.mocks.length ? `<div class="table-wrap"><table><thead><tr><th>日期</th><th>类型</th><th>行测</th><th>申论</th><th>总分</th><th>复盘</th></tr></thead><tbody>${[...state.mocks].sort((a, b) => b.date.localeCompare(a.date)).map(m => `<tr><td>${niceDate(m.date)}</td><td>${m.type}</td><td class="score">${m.xingce}</td><td class="score">${m.shenlun}</td><td class="score">${m.xingce + m.shenlun}</td><td>${esc(m.note || "—")}</td></tr>`).join("")}</tbody></table></div>` : `<div class="empty"><b>△</b>完成第一次模考后，从这里开始观察真实趋势。</div>`}</section>`;
+}
+
+function setting(label, value) { return `<div class="setting"><span>${label}</span><b>${esc(value)}</b></div>`; }
+function settings() {
+  const s = stats();
+  return `<div class="section-head"><div><h2>设置</h2><p>调整目标与节奏，管理本机数据。</p></div></div><div class="grid two">
+    <section class="card"><div class="card-head"><h3>备考目标</h3><button class="btn small outline" data-action="profile">编辑</button></div>
+    ${setting("主目标", state.profile.exam)}${setting("目标地区", state.profile.province || "暂未设置")}${setting("考试日期", `${state.profile.examDate}（剩余 ${s.left} 天）`)}${setting("目标分数", `行测 ${state.profile.targetXingce} + 申论 ${state.profile.targetShenlun} = ${Number(state.profile.targetXingce) + Number(state.profile.targetShenlun)} 分`)}${setting("当前阶段", state.profile.stage)}${setting("学习容量", `工作日 ${state.profile.weekday} 分钟 · 周末 ${state.profile.weekend} 分钟`)}
+    <div class="target-summary"><h3>模块目标</h3>${Object.entries(state.profile.targets).map(([module, target]) => `<div><span>${module}</span><b>${target.questions} 题 · ${target.accuracy}% · ${target.minutes} 分钟</b></div>`).join("")}</div></section>
+    <section class="card"><div class="card-head"><h3>数据与计划</h3></div>
+    <div class="setting"><div><b>导出备份</b><p>下载包含全部记录的 JSON 文件</p></div><button class="btn small outline" data-action="export">导出</button></div>
+    <div class="setting"><div><b>恢复备份</b><p>从此前导出的文件恢复</p></div><button class="btn small outline" data-action="import">选择</button></div>
+    <div class="setting"><div><b>重新生成计划</b><p>保留历史，替换未来未完成任务</p></div><button class="btn small outline" data-action="regenerate">生成</button></div>
+    <div class="setting"><div><b>清空全部数据</b><p>此操作无法撤销，请先备份</p></div><button class="btn small danger" data-action="reset">清空</button></div></section></div>
+    ${premiumCard("个人版路线", "不接入微信支付，数据先保存在本机；如需换设备，优先使用导出备份。")}`;
+}
+
+function modal(content) { $("#modal-root").innerHTML = `<div class="modal-backdrop"><div class="modal" data-modal>${content}</div></div>`; }
+function closeModal() { $("#modal-root").innerHTML = ""; }
+const closeHead = (title, sub) => `<div class="modal-head"><div><h2>${title}</h2><p>${sub}</p></div><button class="close" data-action="close">×</button></div>`;
+const options = list => list.map(x => `<option>${x}</option>`).join("");
+
+function targetEditor() {
+  const targetModules = ["资料分析", "言语理解", "政治理论", "判断推理", "数量关系"];
+  return `<div class="field full"><div class="target-title"><label>行测模块目标</label><small>完成时间必须与目标题量配套设置</small></div>
+    <div class="target-editor"><div class="target-row target-header"><b>模块</b><b>题量</b><b>正确率</b><b>完成时间</b></div>
+    ${targetModules.map((module, index) => {
+      const t = state.profile.targets[module];
+      return `<div class="target-row"><strong>${module}</strong>
+        <label><input required type="number" min="1" max="100" name="target_${index}_questions" value="${t.questions}"><span>题</span></label>
+        <label><input required type="number" min="1" max="100" name="target_${index}_accuracy" value="${t.accuracy}"><span>%</span></label>
+        <label><input required type="number" min="1" max="180" name="target_${index}_minutes" value="${t.minutes}"><span>分钟</span></label>
+      </div>`;
+    }).join("")}</div></div>`;
+}
+
+function profileForm(first = false) {
+  return `${first ? `<div class="welcome"><span class="brand-badge">岸</span><h2>建立你的上岸坐标</h2><p>用两分钟告诉我目标和可用时间，我们会生成一份能真正执行的计划。</p></div>` : closeHead("调整备考目标", "修改设置不会删除历史记录。")}
+    <form id="profile-form" data-first="${first}"><div class="form-grid">
+    <div class="field"><label>你的称呼</label><input name="name" value="${esc(state.profile.name)}" placeholder="可选"></div>
+    <div class="field"><label>主考试目标</label><select name="exam"><option ${state.profile.exam === "国考" ? "selected" : ""}>国考</option><option ${state.profile.exam === "省考" ? "selected" : ""}>省考</option></select></div>
+    <div class="field"><label>省考地区</label><input name="province" value="${esc(state.profile.province)}" placeholder="例如：江苏"></div>
+    <div class="field"><label>目标笔试日期</label><input required type="date" name="examDate" min="${today()}" value="${state.profile.examDate}"></div>
+    <div class="field"><label>工作日分钟</label><input required type="number" min="30" max="720" name="weekday" value="${state.profile.weekday}"></div>
+    <div class="field"><label>周末分钟</label><input required type="number" min="30" max="720" name="weekend" value="${state.profile.weekend}"></div>
+    <div class="field"><label>行测目标分数</label><input required type="number" min="0" max="100" step="0.5" name="targetXingce" value="${state.profile.targetXingce}"></div>
+    <div class="field"><label>申论目标分数</label><input required type="number" min="0" max="100" step="0.5" name="targetShenlun" value="${state.profile.targetShenlun}"></div>
+    <div class="field full"><label>当前阶段</label><select name="stage">${["基础建立", "强化提升", "套卷训练", "考前冲刺"].map(x => `<option ${state.profile.stage === x ? "selected" : ""}>${x}</option>`).join("")}</select></div>
+    ${targetEditor()}
+    </div><div class="form-actions">${first ? "" : `<button type="button" class="btn outline" data-action="close">取消</button>`}<button class="btn">${first ? "生成我的计划" : "保存设置"}</button></div></form>`;
+}
+
+function welcome() { modal(profileForm(true), true); }
+function practiceModal() {
+  modal(`${closeHead("记录一次练习", "填写结果即可，题目和解析仍留在原题库 App。")}<form id="record-form"><div class="form-grid">
+    <div class="field"><label>日期</label><input required type="date" name="date" value="${today()}"></div><div class="field"><label>模块</label><select name="module">${options(MODULES)}</select></div>
+    <div class="field full"><label>来源</label><input required name="source" placeholder="例如：粉笔资料分析专项"></div><div class="field"><label>总题数</label><input required type="number" min="1" name="total" value="20"></div>
+    <div class="field"><label>正确题数</label><input required type="number" min="0" name="correct" value="15"></div><div class="field"><label>用时（分钟）</label><input required type="number" min="1" name="minutes" value="30"></div>
+    <div class="field full"><label>一句复盘</label><textarea name="note" placeholder="哪里卡住了？下次怎样更快？"></textarea></div></div>
+    <div class="form-actions"><button type="button" class="btn outline" data-action="close">取消</button><button class="btn">保存记录</button></div></form>`);
+}
+function taskModal(date = today()) {
+  modal(`${closeHead("添加学习任务", "任务要具体到能直接开始。")}<form id="task-form"><div class="form-grid">
+    <div class="field full"><label>任务名称</label><input required name="title" placeholder="例如：资料分析速算 20 题"></div><div class="field"><label>日期</label><input required type="date" name="date" value="${date}"></div>
+    <div class="field"><label>模块</label><select name="module">${options([...MODULES, "复盘", "模考"])}</select></div><div class="field"><label>预计分钟</label><input required type="number" min="5" name="minutes" value="45"></div>
+    <div class="field"><label>类型</label><select name="fixed"><option value="false">可调整</option><option value="true">固定节点</option></select></div></div>
+    <div class="form-actions"><button type="button" class="btn outline" data-action="close">取消</button><button class="btn">加入计划</button></div></form>`);
+}
+function mistakeModal() {
+  modal(`${closeHead("添加错题索引", "记住为什么错，比抄下整道题更重要。")}<form id="mistake-form"><div class="form-grid">
+    <div class="field"><label>模块</label><select name="module">${options(MODULES)}</select></div><div class="field"><label>来源/题号</label><input required name="source" placeholder="粉笔 · 练习日期 · 第12题"></div>
+    <div class="field full"><label>题目摘要</label><input required name="summary" placeholder="用一句话描述考点"></div><div class="field"><label>错误原因</label><select name="reason">${options(["知识盲点", "审题失误", "方法不熟", "时间不足", "计算失误"])}</select></div>
+    <div class="field"><label>计划复习日</label><input type="date" name="reviewDate" value="${today()}"></div><div class="field full"><label>正确思路</label><textarea name="solution" placeholder="下次看到什么特征，就用什么方法？"></textarea></div></div>
+    <div class="form-actions"><button type="button" class="btn outline" data-action="close">取消</button><button class="btn">保存错题</button></div></form>`);
+}
+function mockModal() {
+  modal(`${closeHead("录入模考成绩", "记录完整套卷，观察真实应试变化。")}<form id="mock-form"><div class="form-grid">
+    <div class="field"><label>日期</label><input required type="date" name="date" value="${today()}"></div><div class="field"><label>类型</label><select name="type">${options(["国考模拟", "省考模拟"])}</select></div>
+    <div class="field"><label>行测得分</label><input required type="number" min="0" max="100" step=".1" name="xingce"></div><div class="field"><label>申论得分</label><input required type="number" min="0" max="100" step=".1" name="shenlun"></div>
+    <div class="field full"><label>复盘结论</label><textarea name="note" placeholder="本次最需要修正的一个问题"></textarea></div></div>
+    <div class="form-actions"><button type="button" class="btn outline" data-action="close">取消</button><button class="btn">保存成绩</button></div></form>`);
+}
+
+function premiumModal() {
+  modal(`${closeHead("个人版功能规划", "当前不接入微信支付，也不做收费入口；先把自用体验打磨顺。")}
+    <div class="premium-modal-list">${premiumFeatures.map(([name, desc, tag]) => `<article><div><b>${name}</b><p>${desc}</p></div><span>${tag}</span></article>`).join("")}</div>
+    <div class="pay-roadmap"><h3>当前使用原则</h3><p>核心：目标、计划、练习、错题、模考都优先服务个人备考。</p><p>数据：默认保存在当前浏览器，重要阶段建议手动导出备份。</p><p>后续：如果未来再考虑分享或商业化，再单独评估云同步和主体认证。</p></div>
+    <div class="form-actions"><button class="btn" data-action="close">知道了</button></div>`);
+}
+
+function exportData() {
+  const url = URL.createObjectURL(new Blob([JSON.stringify(state, null, 2)], { type: "application/json" }));
+  const a = document.createElement("a"); a.href = url; a.download = `上岸轨迹备份-${today()}.json`; a.click(); URL.revokeObjectURL(url); toast("备份已导出");
+}
+
+document.addEventListener("click", e => {
+  if (e.target.closest("[data-modal]")) e.stopPropagation();
+  const targetPage = e.target.closest("[data-page]")?.dataset.page;
+  if (targetPage) { location.hash = targetPage; return; }
+  const action = e.target.closest("[data-action]")?.dataset.action;
+  const actions = {
+    practice: practiceModal, task: () => taskModal(), mistake: mistakeModal, mock: mockModal, close: closeModal,
+    profile: () => modal(profileForm()), premium: premiumModal, export: exportData, import: () => $("#import-file").click(),
+    regenerate: () => {
+      if (!confirm("替换今天及之后未完成的任务？历史记录会保留。")) return;
+      const history = state.tasks.filter(t => t.done || t.date < today()); makePlan(); state.tasks = [...history, ...state.tasks]; save("未来计划已重新生成"); render();
+    },
+    reset: () => { if (confirm("确定清空全部数据吗？建议先导出备份。")) { state = freshState(); localStorage.removeItem(KEY); render(); } }
+  };
+  if (action && actions[action]) actions[action]();
+  const date = e.target.closest("[data-task-date]")?.dataset.taskDate;
+  if (date) taskModal(date);
+  const filter = e.target.closest("[data-filter]")?.dataset.filter;
+  if (filter) { recordFilter = filter; render(); }
+  const nextPlanMode = e.target.closest("[data-plan-mode]")?.dataset.planMode;
+  if (nextPlanMode) { planMode = nextPlanMode; render(); }
+  const monthShift = e.target.closest("[data-month-shift]")?.dataset.monthShift;
+  if (monthShift) { planMonthOffset += Number(monthShift); render(); }
+  const deleteId = e.target.closest("[data-delete-record]")?.dataset.deleteRecord;
+  if (deleteId && confirm("删除这条练习记录？")) { state.records = state.records.filter(r => r.id !== deleteId); save("记录已删除"); render(); }
+});
+
+document.addEventListener("change", e => {
+  if (e.target.dataset.task) { const t = state.tasks.find(x => x.id === e.target.dataset.task); if (t) t.done = e.target.checked; save(e.target.checked ? "完成一项，漂亮。" : "任务已恢复"); render(); }
+  if (e.target.dataset.mistake) { const m = state.mistakes.find(x => x.id === e.target.dataset.mistake); if (m) m.done = e.target.checked; save("复习状态已更新"); render(); }
+});
+
+document.addEventListener("submit", e => {
+  e.preventDefault(); const f = e.target; const d = Object.fromEntries(new FormData(f));
+  if (f.id === "profile-form") {
+    const targetModules = ["资料分析", "言语理解", "政治理论", "判断推理", "数量关系"];
+    const targets = Object.fromEntries(targetModules.map((module, index) => [module, {
+      questions: Number(d[`target_${index}_questions`]),
+      accuracy: Number(d[`target_${index}_accuracy`]),
+      minutes: Number(d[`target_${index}_minutes`])
+    }]));
+    state.profile = {
+      ...state.profile,
+      name: d.name, exam: d.exam, province: d.province, examDate: d.examDate,
+      weekday: Number(d.weekday), weekend: Number(d.weekend), stage: d.stage,
+      targetXingce: Number(d.targetXingce), targetShenlun: Number(d.targetShenlun),
+      targets, ready: true
+    };
+    if (f.dataset.first === "true") makePlan(); save(f.dataset.first === "true" ? "" : "目标设置已更新"); closeModal(); render();
+    if (f.dataset.first === "true") toast("计划已生成，今天就开始");
+  }
+  if (f.id === "record-form") { state.records.unshift({ id: uid(), ...d, total: Number(d.total), correct: Number(d.correct), minutes: Number(d.minutes) }); save("练习记录已保存"); closeModal(); render(); }
+  if (f.id === "task-form") { state.tasks.push({ id: uid(), ...d, minutes: Number(d.minutes), fixed: d.fixed === "true", done: false }); save("任务已加入计划"); closeModal(); render(); }
+  if (f.id === "mistake-form") { state.mistakes.unshift({ id: uid(), ...d, done: false }); save("错题已加入复盘"); closeModal(); render(); }
+  if (f.id === "mock-form") { state.mocks.unshift({ id: uid(), ...d, xingce: Number(d.xingce), shenlun: Number(d.shenlun) }); save("模考成绩已保存"); closeModal(); render(); }
+});
+
+$("#import-file").addEventListener("change", async e => {
+  const file = e.target.files[0]; if (!file) return;
+  try {
+    const data = JSON.parse(await file.text());
+    if (data.version !== 1 || !data.profile || !Array.isArray(data.tasks)) throw new Error();
+    if (confirm("恢复备份将覆盖当前数据，继续吗？")) { state = data; save("备份恢复成功"); render(); }
+  } catch { alert("无法读取该文件，请选择由上岸轨迹导出的备份。"); }
+  e.target.value = "";
+});
+
+window.addEventListener("hashchange", () => { page = location.hash.slice(1) || (window.matchMedia("(max-width: 720px)").matches ? "plan" : "dashboard"); render(); });
+render();
+
+</script>
+</body>
+</html>
+

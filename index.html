@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#173f2d">
+  <title>上岸轨迹｜公考备考驾驶舱</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="brand" href="#dashboard"><b>岸</b><span><strong>上岸轨迹</strong><small>备考驾驶舱</small></span></a>
+      <nav id="side-nav"></nav>
+      <div class="side-foot"><span>数据仅保存在本机</span><button data-action="export">导出备份 →</button></div>
+    </aside>
+    <main>
+      <header class="topbar">
+        <div><p id="date-label"></p><h1 id="page-title">总览</h1></div>
+        <div class="top-actions"><span class="saved">● 已保存到本机</span><button class="btn outline" data-action="practice">＋ 记录练习</button></div>
+      </header>
+      <section id="view" class="view"></section>
+    </main>
+  </div>
+  <nav id="mobile-nav" class="mobile-nav"></nav>
+  <div id="modal-root"></div>
+  <input id="import-file" type="file" accept="application/json" hidden>
+  <div id="toast" class="toast"></div>
+  <script src="./app.js"></script>
+</body>
+</html>

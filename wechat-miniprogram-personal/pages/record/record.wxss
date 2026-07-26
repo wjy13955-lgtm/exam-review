@@ -1,0 +1,5 @@
+.picker {
+  min-height: 78rpx;
+  line-height: 78rpx;
+  color: #16241d;
+}

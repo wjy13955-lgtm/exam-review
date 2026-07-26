@@ -1,0 +1,45 @@
+<view class="page">
+  <view class="section-title">
+    <text class="h2">模考分析</text>
+    <text class="muted">记录完整套卷，观察真实趋势</text>
+  </view>
+
+  <view class="grid two">
+    <view class="card stat"><text class="stat-label">目标总分</text><text class="stat-num">{{targetScore}}</text></view>
+    <view class="card stat"><text class="stat-label">最近总分</text><text class="stat-num">{{latestScore}}</text></view>
+  </view>
+
+  <view class="card">
+    <form class="form" bindsubmit="submit">
+      <view class="field">
+        <text class="label">模考类型</text>
+        <picker range="{{types}}" value="{{typeIndex}}" bindchange="changeType">
+          <view class="picker">{{types[typeIndex]}}</view>
+        </picker>
+      </view>
+      <view class="grid two">
+        <view class="field"><text class="label">行测得分</text><input name="xingce" type="digit" placeholder="75" /></view>
+        <view class="field"><text class="label">申论得分</text><input name="shenlun" type="digit" placeholder="70" /></view>
+      </view>
+      <view class="field"><text class="label">复盘结论</text><textarea name="note" placeholder="本次最需要修正的一个问题" /></view>
+      <button class="btn" formType="submit">保存成绩</button>
+    </form>
+  </view>
+
+  <view class="card">
+    <view class="card-head">
+      <view><text class="h3">成绩记录</text><text class="muted">录入 3 次以上更容易看趋势</text></view>
+      <text class="pill">{{mocks.length}} 次</text>
+    </view>
+    <block wx:if="{{mocks.length}}">
+      <view wx:for="{{mocks}}" wx:key="id" class="task">
+        <view class="task-main">
+          <text class="task-title">{{item.type}} · {{item.total}} 分</text>
+          <text class="task-meta">{{item.date}} · 行测 {{item.xingce}} · 申论 {{item.shenlun}}</text>
+        </view>
+        <text class="pill">{{item.diffText}}</text>
+      </view>
+    </block>
+    <view wx:else class="empty">完成第一次模考后，从这里开始观察趋势</view>
+  </view>
+</view>
