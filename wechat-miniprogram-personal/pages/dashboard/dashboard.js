@@ -7,6 +7,7 @@ Page({
     goals: [],
     todayTasks: [],
     dueMistakes: [],
+    dueVocabs: [],
     targetScore: 0,
     timeRate: 0
   },
@@ -21,6 +22,14 @@ Page({
     const records = state.records || [];
     const dueMistakes = app.dueMistakes(state).map(item => {
       const normalized = app.normalizeMistake(item);
+      const nextIndex = normalized.reviewPlan.findIndex(step => !step.done);
+      return {
+        ...normalized,
+        nextRound: nextIndex >= 0 ? nextIndex + 1 : 6
+      };
+    });
+    const dueVocabs = app.dueVocabs(state).map(item => {
+      const normalized = app.normalizeVocab(item);
       const nextIndex = normalized.reviewPlan.findIndex(step => !step.done);
       return {
         ...normalized,
@@ -45,6 +54,7 @@ Page({
       goals,
       todayTasks: stats.todayTasks,
       dueMistakes,
+      dueVocabs,
       targetScore: Number(state.profile.targetXingce) + Number(state.profile.targetShenlun),
       timeRate: stats.todayMinutes ? app.clamp(stats.doneMinutes / stats.todayMinutes * 100) : 0
     });

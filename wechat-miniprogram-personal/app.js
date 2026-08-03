@@ -52,6 +52,7 @@ function freshState() {
     tasks: [],
     records: [],
     mistakes: [],
+    vocabNotes: [],
     mocks: []
   };
 }
@@ -118,9 +119,39 @@ App({
     };
   },
 
+  normalizeVocab(item) {
+    const createdAt = item.createdAt || item.reviewDate || today();
+    const reviewPlan = Array.isArray(item.reviewPlan) && item.reviewPlan.length
+      ? item.reviewPlan
+      : this.makeReviewPlan(createdAt);
+    const next = reviewPlan.find(step => !step.done);
+    return {
+      ...item,
+      createdAt,
+      reviewPlan,
+      reviewRound: item.reviewRound || reviewPlan.filter(step => step.done).length,
+      reviewDate: next ? next.date : item.reviewDate || createdAt,
+      mastered: item.mastered || !next,
+      done: item.done || false,
+      word: item.word || "",
+      meaning: item.meaning || "",
+      confuseWith: item.confuseWith || "",
+      difference: item.difference || "",
+      context: item.context || "",
+      example: item.example || "",
+      source: item.source || ""
+    };
+  },
+
   dueMistakes(state = this.getState()) {
     return (state.mistakes || [])
       .map(item => this.normalizeMistake(item))
+      .filter(item => !item.mastered && item.reviewDate <= today());
+  },
+
+  dueVocabs(state = this.getState()) {
+    return (state.vocabNotes || [])
+      .map(item => this.normalizeVocab(item))
       .filter(item => !item.mastered && item.reviewDate <= today());
   },
 

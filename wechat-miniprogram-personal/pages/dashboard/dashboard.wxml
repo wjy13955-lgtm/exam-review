@@ -75,11 +75,18 @@
       </view>
       <button class="btn plain card-action" bindtap="goReview">去复盘</button>
     </view>
-    <block wx:if="{{dueMistakes.length}}">
+    <block wx:if="{{dueMistakes.length || dueVocabs.length}}">
       <view wx:for="{{dueMistakes}}" wx:key="id" class="task">
         <view class="task-main">
           <text class="task-title">{{item.summary}}</text>
           <text class="task-meta">{{item.module}} · {{item.knowledge || item.reason}} · 第 {{item.nextRound}} / 6 轮</text>
+        </view>
+        <text class="pill">{{item.reviewDate}}</text>
+      </view>
+      <view wx:for="{{dueVocabs}}" wx:key="id" class="task">
+        <view class="task-main">
+          <text class="task-title">{{item.word}}</text>
+          <text class="task-meta">词义辨析 · 易混 {{item.confuseWith || '无'}} · 第 {{item.nextRound}} / 6 轮</text>
         </view>
         <text class="pill">{{item.reviewDate}}</text>
       </view>
@@ -99,6 +106,7 @@
       <view class="stat capability-item"><text class="stat-label">本地备份</text><text class="muted">设置页可导出/恢复</text></view>
       <view class="stat capability-item"><text class="stat-label">学习报告</text><text class="muted">后续按记录生成</text></view>
       <view class="stat capability-item"><text class="stat-label">错题复盘</text><text class="muted">拍照索引 + 遗忘曲线</text></view>
+      <view class="stat capability-item"><text class="stat-label">词义积累</text><text class="muted">成语辨析 + 间隔复习</text></view>
       <view class="stat capability-item"><text class="stat-label">模考趋势</text><text class="muted">对比目标分数</text></view>
     </view>
   </view>

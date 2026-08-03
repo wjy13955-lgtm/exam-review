@@ -46,3 +46,12 @@
   padding: 0 18rpx;
   font-size: 24rpx;
 }
+
+.vocab-card {
+  border-color: #ece3d2;
+  background: linear-gradient(135deg, #fffefa, #fff8ee);
+}
+
+.vocab-review-card {
+  align-items: flex-start;
+}

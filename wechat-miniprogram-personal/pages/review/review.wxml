@@ -9,6 +9,47 @@
     <view class="card stat"><text class="stat-label">已掌握</text><text class="stat-num">{{masteredList.length}}</text></view>
   </view>
 
+  <view class="card form-card vocab-card">
+    <view class="card-head">
+      <view>
+        <text class="h3">成语词义积累 / 辨析</text>
+        <text class="muted">言语理解高频易混词，按遗忘曲线复盘</text>
+      </view>
+      <text class="pill">0/1/3/7/15/30</text>
+    </view>
+
+    <form class="form" bindsubmit="submitVocab">
+      <view class="grid two">
+        <view class="field"><text class="label">成语/实词</text><input name="word" placeholder="例如：不孚众望" /></view>
+        <view class="field"><text class="label">易混词</text><input name="confuseWith" placeholder="例如：不负众望" /></view>
+      </view>
+      <view class="field"><text class="label">词义</text><textarea name="meaning" placeholder="写清准确含义，避免只凭字面理解" /></view>
+      <view class="field"><text class="label">辨析要点</text><textarea name="difference" placeholder="两者差异、感情色彩、适用对象、语义轻重" /></view>
+      <view class="field"><text class="label">适用语境</text><input name="context" placeholder="例如：评价是否令人信服 / 是否辜负期待" /></view>
+      <view class="field"><text class="label">例句/错例</text><textarea name="example" placeholder="可写一道逻辑填空里的语境句" /></view>
+      <view class="field"><text class="label">来源</text><input name="source" placeholder="例如：粉笔言语第 3 组 / 模考错题" /></view>
+      <view class="form-action"><button class="btn" formType="submit">保存词条并生成复盘计划</button></view>
+    </form>
+  </view>
+
+  <view class="card">
+    <view class="card-head">
+      <view><text class="h3">今日词义复盘</text><text class="muted">看词义、辨析点和语境，确认是否真正掌握</text></view>
+      <text class="pill">{{vocabDueList.length}} 项</text>
+    </view>
+    <block wx:if="{{vocabDueList.length}}">
+      <view wx:for="{{vocabDueList}}" wx:key="id" class="review-card vocab-review-card">
+        <view class="review-main">
+          <text class="task-title">{{item.word}}</text>
+          <text class="task-meta">易混：{{item.confuseWith || '无'}} · 第 {{item.nextRound}} / 6 轮</text>
+          <text class="task-meta">辨析：{{item.difference || item.meaning || '待补充'}}</text>
+        </view>
+        <button class="btn plain mini" data-id="{{item.id}}" bindtap="finishVocabReview">完成</button>
+      </view>
+    </block>
+    <view wx:else class="empty">今天没有到期词义复盘</view>
+  </view>
+
   <view class="card form-card">
     <view class="card-head">
       <view>
@@ -63,6 +104,23 @@
 
   <view class="card">
     <view class="card-head">
+      <view><text class="h3">未来词义复盘</text><text class="muted">适合成语辨析、实词辨析、固定搭配积累</text></view>
+      <text class="pill">{{vocabFutureList.length}} 项</text>
+    </view>
+    <block wx:if="{{vocabFutureList.length}}">
+      <view wx:for="{{vocabFutureList}}" wx:key="id" class="task">
+        <view class="task-main">
+          <text class="task-title">{{item.word}}</text>
+          <text class="task-meta">易混：{{item.confuseWith || '无'}} · 下次 {{item.reviewDate}}</text>
+        </view>
+        <text class="pill">第 {{item.nextRound}} 轮</text>
+      </view>
+    </block>
+    <view wx:else class="empty">暂无未来词义复盘</view>
+  </view>
+
+  <view class="card">
+    <view class="card-head">
       <view><text class="h3">未来复盘</text><text class="muted">按 0/1/3/7/15/30 天安排</text></view>
       <text class="pill">{{futureList.length}} 项</text>
     </view>
@@ -92,5 +150,21 @@
       </view>
     </block>
     <view wx:else class="empty">还没有完成全部复盘的错题</view>
+  </view>
+
+  <view class="card">
+    <view class="card-head">
+      <view><text class="h3">已掌握词条</text><text class="muted">完成 6 轮词义辨析后进入这里</text></view>
+      <text class="pill">{{vocabMasteredList.length}} 项</text>
+    </view>
+    <block wx:if="{{vocabMasteredList.length}}">
+      <view wx:for="{{vocabMasteredList}}" wx:key="id" class="task">
+        <view class="task-main">
+          <text class="task-title done">{{item.word}}</text>
+          <text class="task-meta">{{item.meaning || item.difference || '已掌握'}}</text>
+        </view>
+      </view>
+    </block>
+    <view wx:else class="empty">还没有完成全部复盘的词条</view>
   </view>
 </view>
