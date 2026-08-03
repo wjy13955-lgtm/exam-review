@@ -1,5 +1,6 @@
 const KEY = "shoreline-gongkao-v1";
 const MODULES = ["资料分析", "言语理解", "政治理论", "判断推理", "数量关系", "申论"];
+const REVIEW_INTERVALS = [0, 1, 3, 7, 15, 30];
 const NAV = [
   ["dashboard", "home", "总览"], ["plan", "calendar", "计划"], ["records", "practice", "练习"],
   ["mistakes", "review", "复盘"], ["mocks", "chart", "模考"], ["settings", "settings", "设置"]
@@ -18,6 +19,7 @@ const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 
 const pad = n => String(n).padStart(2, "0");
 const iso = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 const today = () => iso(new Date());
+const addDays = (date, n) => { const d = new Date(`${date}T12:00`); d.setDate(d.getDate() + n); return iso(d); };
 const esc = v => String(v ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 const days = (a, b) => Math.max(0, Math.ceil((new Date(`${b}T12:00`) - new Date(`${a}T12:00`)) / 864e5));
 const niceDate = v => { const d = new Date(`${v}T12:00`); return `${d.getMonth() + 1}月${d.getDate()}日`; };
@@ -35,9 +37,23 @@ function freshState() {
   return {
     version: 1,
     profile: { name: "", exam: "国考", province: "", examDate: iso(exam), weekday: 150, weekend: 300, stage: "强化提升", targetXingce: 75, targetShenlun: 70, targets, ready: false },
-    tasks: [], records: [], mistakes: [], mocks: []
+    tasks: [], records: [], mistakes: [], vocabNotes: [], mocks: []
   };
 }
+
+const makeReviewPlan = (start = today()) => REVIEW_INTERVALS.map((gap, index) => ({ index, gap, date: addDays(start, gap), done: false }));
+
+function normalizeReviewItem(item, type = "mistake") {
+  const createdAt = item.createdAt || item.reviewDate || today();
+  const reviewPlan = Array.isArray(item.reviewPlan) && item.reviewPlan.length ? item.reviewPlan : makeReviewPlan(createdAt);
+  const next = reviewPlan.find(step => !step.done);
+  const base = { ...item, createdAt, reviewPlan, reviewRound: reviewPlan.filter(step => step.done).length, reviewDate: next ? next.date : (item.reviewDate || createdAt), mastered: item.mastered || !next, done: item.done || false };
+  return type === "vocab"
+    ? { ...base, word: item.word || "", meaning: item.meaning || "", confuseWith: item.confuseWith || "", difference: item.difference || "", context: item.context || "", example: item.example || "", source: item.source || "" }
+    : { ...base, questionText: item.questionText || "", knowledge: item.knowledge || "", solution: item.solution || "" };
+}
+
+const dueReviews = (list, type) => (list || []).map(item => normalizeReviewItem(item, type)).filter(item => !item.mastered && item.reviewDate <= today());
 
 function read() {
   try {
@@ -247,7 +263,9 @@ function dashboard() {
     : "剩余任务超过未来容量，需要减少低优先级任务或增加学习时间。";
   const todayMinutes = s.todayTasks.reduce((n, t) => n + t.minutes, 0);
   const doneMinutes = s.todayTasks.filter(t => t.done).reduce((n, t) => n + t.minutes, 0);
-  const dueReviews = state.mistakes.filter(m => !m.done && (!m.reviewDate || m.reviewDate <= today()));
+  const dueMistakes = dueReviews(state.mistakes, "mistake").map(item => ({ ...item, reviewLabel: item.summary, reviewMeta: item.module }));
+  const dueVocabs = dueReviews(state.vocabNotes, "vocab").map(item => ({ ...item, reviewLabel: item.word, reviewMeta: "词义" }));
+  const dueItems = [...dueMistakes, ...dueVocabs];
   return `<section class="overview-head">
     <div><span>${esc(state.profile.stage)} · ${esc(state.profile.exam)}主线</span><h2>${state.profile.name ? `${esc(state.profile.name)}，` : ""}今天也向目标靠近一点。</h2><p>${niceDate(state.profile.examDate)} 笔试 · ${state.profile.province || "目标地区待设置"} · 目标 ${targetScore} 分</p></div>
     <div class="overview-countdown"><small>考试倒计时</small><strong>${s.left}</strong><span>天</span></div>
@@ -269,8 +287,8 @@ function dashboard() {
       <section class="card future-progress"><div class="card-head"><div><h3>未来进度</h3><p>按当前节奏预测</p></div><span class="pill ${s.risk !== "green" ? "orange" : ""}">${riskName}</span></div>
         <div class="future-row"><span>阶段计划</span><b>${s.planRate}%</b></div><div class="progress"><i style="width:${s.planRate}%"></i></div>
         <div class="future-row"><span>近期执行</span><b>${s.recentRate}%</b></div><div class="progress"><i style="width:${s.recentRate}%"></i></div><p>${riskText}</p></section>
-      <section class="card review-reminder"><div class="card-head"><div><h3>错题复盘</h3><p>到期未复习</p></div><strong>${dueReviews.length}</strong></div>
-        ${dueReviews.length ? dueReviews.slice(0, 3).map(m => `<div><span class="pill">${esc(m.module)}</span><p>${esc(m.summary)}</p></div>`).join("") : `<p class="review-clear">当前没有到期错题，保持住。</p>`}
+      <section class="card review-reminder"><div class="card-head"><div><h3>今日复盘</h3><p>错题与词义到期项目</p></div><strong>${dueItems.length}</strong></div>
+        ${dueItems.length ? dueItems.slice(0, 3).map(item => `<div><span class="pill">${esc(item.reviewMeta)}</span><p>${esc(item.reviewLabel)}</p></div>`).join("") : `<p class="review-clear">当前没有到期项目，保持住。</p>`}
         <button class="btn outline" data-page="mistakes">进入复盘</button></section>
     </div>
   </div>`;
@@ -358,14 +376,28 @@ function records() {
 }
 
 function mistakes() {
-  const reasons = state.mistakes.reduce((a, m) => (a[m.reason] = (a[m.reason] || 0) + 1, a), {});
-  const max = Math.max(1, ...Object.values(reasons));
-  const reasonView = Object.keys(reasons).length ? `<div class="module-list">${Object.entries(reasons).map(([k, v]) => `<div class="module-row"><span>${k}</span><div class="progress"><i style="width:${v / max * 100}%"></i></div><b>${v}</b></div>`).join("")}</div>` : `<div class="empty">暂无数据</div>`;
-  return `<div class="section-head"><div><h2>错题复盘</h2><p>只记录索引和错误原因，不复制商业题库内容。</p></div><button class="btn" data-action="mistake">＋ 添加错题</button></div>
-    <div class="grid two"><section class="card"><div class="card-head"><h3>待复习</h3><span class="pill orange">${state.mistakes.filter(m => !m.done).length} 项</span></div>
-    ${state.mistakes.length ? `<div class="task-list">${state.mistakes.map(m => `<div class="task ${m.done ? "done" : ""}"><input class="check" type="checkbox" data-mistake="${m.id}" ${m.done ? "checked" : ""}><div><div class="task-title">${esc(m.summary)}</div><div class="task-meta">${esc(m.source)} · ${esc(m.reason)}</div></div><span class="pill">${m.module}</span></div>`).join("")}</div>` : `<div class="empty"><b>◎</b>错题不可怕，没有复盘的错题才可惜。</div>`}</section>
-    <section class="card"><div class="card-head"><h3>错误原因分布</h3></div>${reasonView}</section></div>
-    ${lockedPanel("错题深度复盘", "按错因和到期日生成复盘队列，提醒你优先处理反复出错的题型。")}`;
+  state.mistakes = (state.mistakes || []).map(item => normalizeReviewItem(item, "mistake"));
+  state.vocabNotes = (state.vocabNotes || []).map(item => normalizeReviewItem(item, "vocab"));
+  const split = (list, type) => ({
+    due: list.filter(item => !item.mastered && item.reviewDate <= today()),
+    future: list.filter(item => !item.mastered && item.reviewDate > today()),
+    mastered: list.filter(item => item.mastered)
+  });
+  const mistakeGroups = split(state.mistakes, "mistake");
+  const vocabGroups = split(state.vocabNotes, "vocab");
+  const row = (item, type, future = false) => `<div class="review-list-item"><div><b>${esc(type === "vocab" ? item.word : item.summary)}</b><small>${type === "vocab" ? `易混：${esc(item.confuseWith || "无")}` : `${esc(item.module)} · ${esc(item.source)}`} · ${future ? `下次 ${item.reviewDate}` : `第 ${Math.min(6, item.reviewRound + 1)} / 6 轮`}</small></div>${future ? `<span class="pill">${niceDate(item.reviewDate)}</span>` : `<button class="btn small outline" data-review-id="${item.id}" data-review-type="${type}">开始复盘</button>`}</div>`;
+  const masteredRow = (item, type) => `<div class="review-list-item mastered"><div><b>${esc(type === "vocab" ? item.word : item.summary)}</b><small>${esc(type === "vocab" ? (item.meaning || item.difference || "已掌握") : `${item.module} · ${item.knowledge || item.reason}`)}</small></div><span class="pill">已掌握</span></div>`;
+  return `<div class="section-head"><div><h2>主动回忆复盘</h2><p>先尝试回忆，再核对答案，按掌握程度安排下一轮。</p></div><button class="btn" data-action="mistake">＋ 添加错题</button></div>
+    <section class="card vocab-entry"><div class="card-head"><div><h3>成语词义积累 / 辨析</h3><p>适合言语理解高频易混词，自动安排 0/1/3/7/15/30 天复盘。</p></div><span class="pill">间隔复习</span></div>
+      <form id="vocab-form"><div class="form-grid"><div class="field"><label>成语 / 实词</label><input required name="word" placeholder="例如：不孚众望"></div><div class="field"><label>易混词</label><input name="confuseWith" placeholder="例如：不负众望"></div><div class="field full"><label>准确词义</label><textarea name="meaning" placeholder="写清准确含义"></textarea></div><div class="field full"><label>辨析要点</label><textarea name="difference" placeholder="差异、感情色彩、适用对象、语义轻重"></textarea></div><div class="field"><label>适用语境</label><input name="context" placeholder="适合什么语境"></div><div class="field"><label>来源</label><input name="source" placeholder="专项练习 / 模考错题"></div><div class="field full"><label>例句 / 错例</label><textarea name="example" placeholder="可写一道逻辑填空里的语境句"></textarea></div></div><div class="form-actions"><button class="btn">保存并生成复盘计划</button></div></form></section>
+    <div class="review-columns">
+      <section class="card"><div class="card-head"><div><h3>今日词义复盘</h3><p>成语、实词与固定搭配</p></div><span class="pill orange">${vocabGroups.due.length} 项</span></div>${vocabGroups.due.length ? `<div class="review-list">${vocabGroups.due.map(item => row(item, "vocab")).join("")}</div>` : `<div class="empty">今天没有到期词义复盘</div>`}</section>
+      <section class="card"><div class="card-head"><div><h3>今日错题复盘</h3><p>按遗忘曲线到期</p></div><span class="pill orange">${mistakeGroups.due.length} 项</span></div>${mistakeGroups.due.length ? `<div class="review-list">${mistakeGroups.due.map(item => row(item, "mistake")).join("")}</div>` : `<div class="empty">今天没有到期错题</div>`}</section>
+      <section class="card"><div class="card-head"><h3>未来词义复盘</h3><span class="pill">${vocabGroups.future.length} 项</span></div>${vocabGroups.future.length ? `<div class="review-list">${vocabGroups.future.map(item => row(item, "vocab", true)).join("")}</div>` : `<div class="empty">暂无未来词义复盘</div>`}</section>
+      <section class="card"><div class="card-head"><h3>未来错题复盘</h3><span class="pill">${mistakeGroups.future.length} 项</span></div>${mistakeGroups.future.length ? `<div class="review-list">${mistakeGroups.future.map(item => row(item, "mistake", true)).join("")}</div>` : `<div class="empty">暂无未来错题复盘</div>`}</section>
+      <section class="card"><div class="card-head"><h3>已掌握词条</h3><span class="pill">${vocabGroups.mastered.length} 项</span></div>${vocabGroups.mastered.length ? `<div class="review-list">${vocabGroups.mastered.map(item => masteredRow(item, "vocab")).join("")}</div>` : `<div class="empty">还没有完成全部复盘的词条</div>`}</section>
+      <section class="card"><div class="card-head"><h3>已掌握错题</h3><span class="pill">${mistakeGroups.mastered.length} 项</span></div>${mistakeGroups.mastered.length ? `<div class="review-list">${mistakeGroups.mastered.map(item => masteredRow(item, "mistake")).join("")}</div>` : `<div class="empty">还没有完成全部复盘的错题</div>`}</section>
+    </div>`;
 }
 
 function mocks() {
@@ -447,9 +479,46 @@ function taskModal(date = today()) {
 function mistakeModal() {
   modal(`${closeHead("添加错题索引", "记住为什么错，比抄下整道题更重要。")}<form id="mistake-form"><div class="form-grid">
     <div class="field"><label>模块</label><select name="module">${options(MODULES)}</select></div><div class="field"><label>来源/题号</label><input required name="source" placeholder="粉笔 · 练习日期 · 第12题"></div>
-    <div class="field full"><label>题目摘要</label><input required name="summary" placeholder="用一句话描述考点"></div><div class="field"><label>错误原因</label><select name="reason">${options(["知识盲点", "审题失误", "方法不熟", "时间不足", "计算失误"])}</select></div>
-    <div class="field"><label>计划复习日</label><input type="date" name="reviewDate" value="${today()}"></div><div class="field full"><label>正确思路</label><textarea name="solution" placeholder="下次看到什么特征，就用什么方法？"></textarea></div></div>
+    <div class="field full"><label>题目摘要</label><input required name="summary" placeholder="用一句话描述题目线索"></div><div class="field"><label>错误原因</label><select name="reason">${options(["知识盲点", "审题失误", "方法不熟", "时间不足", "计算失误"])}</select></div>
+    <div class="field"><label>知识点</label><input name="knowledge" placeholder="这题考什么？"></div><div class="field full"><label>题干文字（可选）</label><textarea name="questionText" placeholder="记录用于回忆的必要题干"></textarea></div><div class="field full"><label>正确思路</label><textarea name="solution" placeholder="下次看到什么特征，就用什么方法？"></textarea></div></div>
     <div class="form-actions"><button type="button" class="btn outline" data-action="close">取消</button><button class="btn">保存错题</button></div></form>`);
+}
+
+function reviewModal(type, id) {
+  const key = type === "vocab" ? "vocabNotes" : "mistakes";
+  const raw = (state[key] || []).find(item => item.id === id);
+  if (!raw) return;
+  const item = normalizeReviewItem(raw, type);
+  const prompt = type === "vocab"
+    ? `<div class="quiz-box"><span>先只看词语和易混词</span><h2>${esc(item.word)}</h2><p>易混：${esc(item.confuseWith || "无")}</p><ol><li>这个词是什么意思？</li><li>和易混词差在哪里？</li><li>适合什么语境？</li></ol></div>`
+    : `<div class="quiz-box"><span>先只看题目线索</span><h2>${esc(item.summary)}</h2><p>${esc(item.module)} · ${esc(item.source)}</p><ol><li>这题考什么知识点？</li><li>我当时为什么错？</li><li>下次第一步应该怎么做？</li></ol></div>`;
+  const answer = type === "vocab"
+    ? `<p><b>词义：</b>${esc(item.meaning || "待补充")}</p><p><b>辨析：</b>${esc(item.difference || "待补充")}</p><p><b>语境：</b>${esc(item.context || "待补充")}</p><p><b>例句：</b>${esc(item.example || "待补充")}</p>`
+    : `<p><b>知识点：</b>${esc(item.knowledge || "待补充")}</p><p><b>错因：</b>${esc(item.reason || "待补充")}</p><p><b>正确思路：</b>${esc(item.solution || "待补充")}</p><p><b>题干文字：</b>${esc(item.questionText || "未记录")}</p>`;
+  modal(`${closeHead(type === "vocab" ? "词义自测" : "错题自测", "先回忆，再看答案，最后选择掌握程度")}${prompt}
+    <button class="btn answer-toggle" data-action="show-review-answer">查看答案 / 核对思路</button>
+    <div class="answer-box" id="review-answer" hidden>${answer}</div>
+    <div class="review-actions" id="review-actions" hidden><button class="btn outline" data-review-result="forgot" data-review-id="${id}" data-review-type="${type}">没想起</button><button class="btn outline" data-review-result="vague" data-review-id="${id}" data-review-type="${type}">模糊</button><button class="btn" data-review-result="mastered" data-review-id="${id}" data-review-type="${type}">掌握</button></div>`);
+}
+
+function applyReviewResult(type, id, level) {
+  const key = type === "vocab" ? "vocabNotes" : "mistakes";
+  const list = state[key] || [];
+  const index = list.findIndex(item => item.id === id);
+  if (index < 0) return;
+  const item = normalizeReviewItem(list[index], type);
+  const current = item.reviewPlan.findIndex(step => !step.done);
+  if (level === "forgot") {
+    item.reviewPlan = makeReviewPlan(addDays(today(), 1)); item.reviewRound = 0; item.reviewDate = addDays(today(), 1); item.mastered = false; item.done = false; item.lastReviewResult = "没想起";
+  } else if (level === "vague") {
+    if (current >= 0) item.reviewPlan[current].date = addDays(today(), 1);
+    item.reviewDate = addDays(today(), 1); item.mastered = false; item.done = false; item.lastReviewResult = "模糊";
+  } else {
+    if (current >= 0) item.reviewPlan[current].done = true;
+    const next = item.reviewPlan.find(step => !step.done);
+    item.reviewRound = item.reviewPlan.filter(step => step.done).length; item.reviewDate = next ? next.date : item.reviewDate; item.mastered = !next; item.done = item.mastered; item.lastReviewResult = "掌握";
+  }
+  list[index] = item; state[key] = list; save(item.mastered ? "已掌握" : "已安排下一轮"); closeModal(); render();
 }
 function mockModal() {
   modal(`${closeHead("录入模考成绩", "记录完整套卷，观察真实应试变化。")}<form id="mock-form"><div class="form-grid">
@@ -481,6 +550,7 @@ document.addEventListener("click", e => {
     profile: () => modal(profileForm()), premium: premiumModal, export: exportData, import: () => $("#import-file").click(),
     "install-app": installApp,
     "dismiss-install": () => { sessionStorage.setItem("shoreline-install-dismissed", "1"); updateInstallPrompt(); },
+    "show-review-answer": () => { $("#review-answer").hidden = false; $("#review-actions").hidden = false; e.target.closest("button").hidden = true; },
     regenerate: () => {
       if (!confirm("替换今天及之后未完成的任务？历史记录会保留。")) return;
       const history = state.tasks.filter(t => t.done || t.date < today()); makePlan(); state.tasks = [...history, ...state.tasks]; save("未来计划已重新生成"); render();
@@ -488,6 +558,10 @@ document.addEventListener("click", e => {
     reset: () => { if (confirm("确定清空全部数据吗？建议先导出备份。")) { state = freshState(); localStorage.removeItem(KEY); render(); } }
   };
   if (action && actions[action]) actions[action]();
+  const resultButton = e.target.closest("[data-review-result]");
+  if (resultButton) { applyReviewResult(resultButton.dataset.reviewType, resultButton.dataset.reviewId, resultButton.dataset.reviewResult); return; }
+  const reviewButton = e.target.closest("[data-review-id]");
+  if (reviewButton) reviewModal(reviewButton.dataset.reviewType, reviewButton.dataset.reviewId);
   const date = e.target.closest("[data-task-date]")?.dataset.taskDate;
   if (date) taskModal(date);
   const filter = e.target.closest("[data-filter]")?.dataset.filter;
@@ -526,7 +600,8 @@ document.addEventListener("submit", e => {
   }
   if (f.id === "record-form") { state.records.unshift({ id: uid(), ...d, total: Number(d.total), correct: Number(d.correct), minutes: Number(d.minutes) }); save("练习记录已保存"); closeModal(); render(); }
   if (f.id === "task-form") { state.tasks.push({ id: uid(), ...d, minutes: Number(d.minutes), fixed: d.fixed === "true", done: false }); save("任务已加入计划"); closeModal(); render(); }
-  if (f.id === "mistake-form") { state.mistakes.unshift({ id: uid(), ...d, done: false }); save("错题已加入复盘"); closeModal(); render(); }
+  if (f.id === "mistake-form") { const createdAt = today(); state.mistakes.unshift({ id: uid(), ...d, createdAt, reviewPlan: makeReviewPlan(createdAt), reviewDate: createdAt, reviewRound: 0, mastered: false, done: false }); save("错题已加入复盘"); closeModal(); render(); }
+  if (f.id === "vocab-form") { const createdAt = today(); state.vocabNotes.unshift({ id: uid(), ...d, createdAt, reviewPlan: makeReviewPlan(createdAt), reviewDate: createdAt, reviewRound: 0, mastered: false, done: false }); save("词条已加入复盘"); render(); }
   if (f.id === "mock-form") { state.mocks.unshift({ id: uid(), ...d, xingce: Number(d.xingce), shenlun: Number(d.shenlun) }); save("模考成绩已保存"); closeModal(); render(); }
 });
 
