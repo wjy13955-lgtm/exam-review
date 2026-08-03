@@ -12,7 +12,9 @@ Page({
     masteredList: [],
     vocabDueList: [],
     vocabFutureList: [],
-    vocabMasteredList: []
+    vocabMasteredList: [],
+    activeReview: null,
+    showAnswer: false
   },
 
   onLoad() {
@@ -154,49 +156,88 @@ Page({
     this.load();
   },
 
-  finishReview(e) {
+  startReview(e) {
     const id = e.currentTarget.dataset.id;
+    const type = e.currentTarget.dataset.type;
     const state = app.getState();
-    const item = state.mistakes.find(m => m.id === id);
-    if (!item) return;
-    const normalized = app.normalizeMistake(item);
-    const index = normalized.reviewPlan.findIndex(step => !step.done);
-    if (index >= 0) {
-      normalized.reviewPlan[index].done = true;
+    const list = type === "vocab" ? (state.vocabNotes || []) : (state.mistakes || []);
+    const raw = list.find(item => item.id === id);
+    if (!raw) return;
+    const item = type === "vocab" ? this.enrichVocab(raw) : this.enrich(raw);
+    this.setData({
+      activeReview: { ...item, type },
+      showAnswer: false
+    });
+  },
+
+  showReviewAnswer() {
+    this.setData({ showAnswer: true });
+  },
+
+  closeReviewCard() {
+    this.setData({ activeReview: null, showAnswer: false });
+  },
+
+  noop() {},
+
+  applyReviewResult(type, id, level) {
+    const state = app.getState();
+    const key = type === "vocab" ? "vocabNotes" : "mistakes";
+    const normalizer = type === "vocab" ? app.normalizeVocab.bind(app) : app.normalizeMistake.bind(app);
+    const list = state[key] || [];
+    const indexInList = list.findIndex(item => item.id === id);
+    if (indexInList < 0) return;
+    const normalized = normalizer(list[indexInList]);
+    const currentIndex = normalized.reviewPlan.findIndex(step => !step.done);
+    if (level === "forgot") {
+      normalized.reviewPlan = app.makeReviewPlan(app.addDays(app.today(), 1));
+      normalized.reviewDate = app.addDays(app.today(), 1);
+      normalized.reviewRound = 0;
+      normalized.mastered = false;
+      normalized.done = false;
+      normalized.lastReviewResult = "没想起";
+    } else if (level === "vague") {
+      if (currentIndex >= 0) {
+        normalized.reviewPlan[currentIndex].date = app.addDays(app.today(), 1);
+      }
+      normalized.reviewDate = app.addDays(app.today(), 1);
+      normalized.reviewRound = normalized.reviewPlan.filter(step => step.done).length;
+      normalized.mastered = false;
+      normalized.done = false;
+      normalized.lastReviewResult = "模糊";
+    } else {
+      if (currentIndex >= 0) {
+        normalized.reviewPlan[currentIndex].done = true;
+      }
+      const next = normalized.reviewPlan.find(step => !step.done);
+      normalized.reviewRound = normalized.reviewPlan.filter(step => step.done).length;
+      normalized.reviewDate = next ? next.date : normalized.reviewDate;
+      normalized.mastered = !next;
+      normalized.done = normalized.mastered;
+      normalized.lastReviewResult = "掌握";
     }
-    const next = normalized.reviewPlan.find(step => !step.done);
-    normalized.reviewRound = normalized.reviewPlan.filter(step => step.done).length;
-    normalized.reviewDate = next ? next.date : normalized.reviewDate;
-    normalized.mastered = !next;
-    normalized.done = normalized.mastered;
-    const position = state.mistakes.findIndex(m => m.id === id);
-    state.mistakes[position] = normalized;
+    list[indexInList] = normalized;
+    state[key] = list;
     app.setState(state);
+    this.setData({ activeReview: null, showAnswer: false });
     wx.showToast({ title: normalized.mastered ? "已掌握" : "已安排下轮" });
     this.load();
   },
 
+  markReviewResult(e) {
+    const level = e.currentTarget.dataset.level;
+    const active = this.data.activeReview;
+    if (!active) return;
+    this.applyReviewResult(active.type, active.id, level);
+  },
+
+  finishReview(e) {
+    const id = e.currentTarget.dataset.id;
+    this.applyReviewResult("mistake", id, "mastered");
+  },
+
   finishVocabReview(e) {
     const id = e.currentTarget.dataset.id;
-    const state = app.getState();
-    const list = state.vocabNotes || [];
-    const item = list.find(v => v.id === id);
-    if (!item) return;
-    const normalized = app.normalizeVocab(item);
-    const index = normalized.reviewPlan.findIndex(step => !step.done);
-    if (index >= 0) {
-      normalized.reviewPlan[index].done = true;
-    }
-    const next = normalized.reviewPlan.find(step => !step.done);
-    normalized.reviewRound = normalized.reviewPlan.filter(step => step.done).length;
-    normalized.reviewDate = next ? next.date : normalized.reviewDate;
-    normalized.mastered = !next;
-    normalized.done = normalized.mastered;
-    const position = list.findIndex(v => v.id === id);
-    list[position] = normalized;
-    state.vocabNotes = list;
-    app.setState(state);
-    wx.showToast({ title: normalized.mastered ? "已掌握" : "已安排下轮" });
-    this.load();
+    this.applyReviewResult("vocab", id, "mastered");
   }
 });

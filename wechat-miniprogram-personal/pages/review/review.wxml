@@ -44,7 +44,7 @@
           <text class="task-meta">易混：{{item.confuseWith || '无'}} · 第 {{item.nextRound}} / 6 轮</text>
           <text class="task-meta">辨析：{{item.difference || item.meaning || '待补充'}}</text>
         </view>
-        <button class="btn plain mini" data-id="{{item.id}}" bindtap="finishVocabReview">完成</button>
+        <button class="btn plain mini" data-id="{{item.id}}" data-type="vocab" bindtap="startReview">复盘</button>
       </view>
     </block>
     <view wx:else class="empty">今天没有到期词义复盘</view>
@@ -96,7 +96,7 @@
           <text class="task-meta">{{item.module}} · {{item.knowledge || item.reason}}</text>
           <text class="task-meta">第 {{item.nextRound}} / 6 轮 · 到期 {{item.reviewDate}}</text>
         </view>
-        <button class="btn plain mini" data-id="{{item.id}}" bindtap="finishReview">完成</button>
+        <button class="btn plain mini" data-id="{{item.id}}" data-type="mistake" bindtap="startReview">复盘</button>
       </view>
     </block>
     <view wx:else class="empty">今天没有到期错题</view>
@@ -166,5 +166,64 @@
       </view>
     </block>
     <view wx:else class="empty">还没有完成全部复盘的词条</view>
+  </view>
+
+  <view wx:if="{{activeReview}}" class="review-mask" bindtap="closeReviewCard">
+    <view class="review-dialog" catchtap="noop">
+      <view class="card-head">
+        <view>
+          <text class="h3">{{activeReview.type === 'vocab' ? '词义自测' : '错题自测'}}</text>
+          <text class="muted">先回忆，再看答案，最后选择掌握程度</text>
+        </view>
+        <button class="close-btn" bindtap="closeReviewCard">×</button>
+      </view>
+
+      <view wx:if="{{activeReview.type === 'vocab'}}" class="quiz-box">
+        <text class="quiz-kicker">先只看词语和易混词</text>
+        <text class="quiz-title">{{activeReview.word}}</text>
+        <text class="quiz-sub">易混：{{activeReview.confuseWith || '无'}}</text>
+        <view class="recall-prompts">
+          <text>请先在心里回答：</text>
+          <text>1. 这个词是什么意思？</text>
+          <text>2. 和易混词差在哪里？</text>
+          <text>3. 适合什么语境？</text>
+        </view>
+      </view>
+
+      <view wx:else class="quiz-box">
+        <text class="quiz-kicker">先只看题目线索</text>
+        <image wx:if="{{activeReview.imagePath}}" class="mistake-photo" src="{{activeReview.imagePath}}" mode="aspectFill" />
+        <text class="quiz-title">{{activeReview.summary}}</text>
+        <text class="quiz-sub">{{activeReview.module}} · {{activeReview.source}}</text>
+        <view class="recall-prompts">
+          <text>请先在心里回答：</text>
+          <text>1. 这题考什么知识点？</text>
+          <text>2. 我当时为什么错？</text>
+          <text>3. 下次第一步应该怎么做？</text>
+        </view>
+      </view>
+
+      <button wx:if="{{!showAnswer}}" class="btn answer-btn" bindtap="showReviewAnswer">查看答案 / 核对思路</button>
+
+      <view wx:if="{{showAnswer && activeReview.type === 'vocab'}}" class="answer-box">
+        <text class="answer-line">词义：{{activeReview.meaning || '待补充'}}</text>
+        <text class="answer-line">辨析：{{activeReview.difference || '待补充'}}</text>
+        <text class="answer-line">语境：{{activeReview.context || '待补充'}}</text>
+        <text class="answer-line">例句：{{activeReview.example || '待补充'}}</text>
+      </view>
+
+      <view wx:if="{{showAnswer && activeReview.type === 'mistake'}}" class="answer-box">
+        <text class="answer-line">知识点：{{activeReview.knowledge || '待补充'}}</text>
+        <text class="answer-line">错因：{{activeReview.reason || '待补充'}}</text>
+        <text class="answer-line">正确思路：{{activeReview.solution || '待补充'}}</text>
+        <text class="answer-line">题干文字：{{activeReview.questionText || '未记录'}}</text>
+      </view>
+
+      <view wx:if="{{showAnswer}}" class="review-actions">
+        <button class="btn plain" data-level="forgot" bindtap="markReviewResult">没想起</button>
+        <button class="btn plain" data-level="vague" bindtap="markReviewResult">模糊</button>
+        <button class="btn" data-level="mastered" bindtap="markReviewResult">掌握</button>
+      </view>
+    </view>
   </view>
 </view>
