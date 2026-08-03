@@ -70,7 +70,28 @@
       </view>
       <view class="field"><text class="label">来源/题号</text><input name="source" placeholder="粉笔 · 第12题" /></view>
       <view class="field"><text class="label">题目摘要</text><input name="summary" placeholder="用一句话描述考点" /></view>
-      <view class="field"><text class="label">题干文字</text><textarea name="questionText" placeholder="可手动粘贴识别出的题干；后续可接 OCR 自动填充" /></view>
+      <view class="field"><text class="label">整题原文（含选项）</text><textarea name="questionFullText" placeholder="可直接粘贴题干 + A/B/C/D 选项，保存时会尽量自动拆分" /></view>
+      <view class="field"><text class="label">题干文字（可选）</text><textarea name="questionText" placeholder="如果整题原文已填写，这里可不填；也可手动补充题干" /></view>
+      <view class="grid two">
+        <view class="field"><text class="label">A 选项</text><input name="optionA" placeholder="自动拆分失败时手动填" /></view>
+        <view class="field"><text class="label">B 选项</text><input name="optionB" placeholder="自动拆分失败时手动填" /></view>
+        <view class="field"><text class="label">C 选项</text><input name="optionC" placeholder="自动拆分失败时手动填" /></view>
+        <view class="field"><text class="label">D 选项</text><input name="optionD" placeholder="自动拆分失败时手动填" /></view>
+      </view>
+      <view class="grid two">
+        <view class="field">
+          <text class="label">你的答案</text>
+          <picker range="{{answerOptions}}" value="{{userAnswerIndex}}" bindchange="changeUserAnswer">
+            <view class="picker">{{answerOptions[userAnswerIndex]}}</view>
+          </picker>
+        </view>
+        <view class="field">
+          <text class="label">正确答案</text>
+          <picker range="{{answerOptions}}" value="{{correctAnswerIndex}}" bindchange="changeCorrectAnswer">
+            <view class="picker">{{answerOptions[correctAnswerIndex]}}</view>
+          </picker>
+        </view>
+      </view>
       <view class="field"><text class="label">错误知识点</text><input name="knowledge" placeholder="例如：增长率比较 / 削弱加强 / 排列组合" /></view>
       <view class="field">
         <text class="label">错误原因</text>
@@ -195,8 +216,18 @@
         <image wx:if="{{activeReview.imagePath}}" class="mistake-photo" src="{{activeReview.imagePath}}" mode="aspectFill" />
         <text class="quiz-title">{{activeReview.summary}}</text>
         <text class="quiz-sub">{{activeReview.module}} · {{activeReview.source}}</text>
+        <view class="choice-question">
+          <text class="choice-stem">{{activeReview.questionText || activeReview.questionFullText || '未记录题干文字，可根据图片回忆'}}</text>
+          <view wx:if="{{activeReview.optionList.length}}" class="choice-options">
+            <view wx:for="{{activeReview.optionList}}" wx:key="key" class="choice-option">
+              <text>{{item.key}}</text>
+              <text>{{item.text}}</text>
+            </view>
+          </view>
+        </view>
         <view class="recall-prompts">
           <text>请先在心里回答：</text>
+          <text>0. 如果重做一遍，我现在会选哪个？</text>
           <text>1. 这题考什么知识点？</text>
           <text>2. 我当时为什么错？</text>
           <text>3. 下次第一步应该怎么做？</text>
@@ -213,10 +244,11 @@
       </view>
 
       <view wx:if="{{showAnswer && activeReview.type === 'mistake'}}" class="answer-box">
+        <text class="answer-line">你的答案：{{activeReview.userAnswer || '未记录'}}</text>
+        <text class="answer-line">正确答案：{{activeReview.correctAnswer || '未记录'}}</text>
         <text class="answer-line">知识点：{{activeReview.knowledge || '待补充'}}</text>
         <text class="answer-line">错因：{{activeReview.reason || '待补充'}}</text>
         <text class="answer-line">正确思路：{{activeReview.solution || '待补充'}}</text>
-        <text class="answer-line">题干文字：{{activeReview.questionText || '未记录'}}</text>
       </view>
 
       <view wx:if="{{showAnswer}}" class="review-actions">

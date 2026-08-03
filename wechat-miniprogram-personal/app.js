@@ -23,6 +23,7 @@ const days = (a, b) => Math.max(0, Math.ceil((new Date(`${b}T12:00`) - new Date(
 const clamp = n => Math.max(0, Math.min(100, Math.round(n)));
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 const REVIEW_INTERVALS = [0, 1, 3, 7, 15, 30];
+const ANSWER_OPTIONS = ["A", "B", "C", "D"];
 
 function freshState() {
   const exam = new Date();
@@ -58,7 +59,7 @@ function freshState() {
 }
 
 App({
-  globalData: { MODULES, COLORS },
+  globalData: { MODULES, COLORS, ANSWER_OPTIONS },
 
   onLaunch() {
     const state = this.getState();
@@ -114,7 +115,11 @@ App({
       mastered: item.mastered || !next,
       done: item.done || false,
       imagePath: item.imagePath || "",
+      questionFullText: item.questionFullText || "",
       questionText: item.questionText || "",
+      options: item.options || {},
+      userAnswer: item.userAnswer || "",
+      correctAnswer: item.correctAnswer || "",
       knowledge: item.knowledge || ""
     };
   },

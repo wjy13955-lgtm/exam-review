@@ -3,9 +3,12 @@ const app = getApp();
 Page({
   data: {
     modules: [],
+    answerOptions: [],
     reasons: ["知识盲点", "审题失误", "方法不熟", "时间不足", "计算失误"],
     moduleIndex: 0,
     reasonIndex: 0,
+    userAnswerIndex: 0,
+    correctAnswerIndex: 0,
     imagePath: "",
     dueList: [],
     futureList: [],
@@ -18,7 +21,7 @@ Page({
   },
 
   onLoad() {
-    this.setData({ modules: app.globalData.MODULES });
+    this.setData({ modules: app.globalData.MODULES, answerOptions: app.globalData.ANSWER_OPTIONS });
   },
 
   onShow() {
@@ -31,6 +34,32 @@ Page({
 
   changeReason(e) {
     this.setData({ reasonIndex: Number(e.detail.value) });
+  },
+
+  changeUserAnswer(e) {
+    this.setData({ userAnswerIndex: Number(e.detail.value) });
+  },
+
+  changeCorrectAnswer(e) {
+    this.setData({ correctAnswerIndex: Number(e.detail.value) });
+  },
+
+  parseChoiceText(text = "") {
+    const raw = String(text || "").trim();
+    if (!raw) return { questionText: "", options: {} };
+    const normalized = raw.replace(/\r/g, "\n");
+    const optionRegex = /(?:^|\n|\s)([A-D])[\.\．、:：]\s*/g;
+    const matches = [...normalized.matchAll(optionRegex)];
+    if (!matches.length) return { questionText: raw, options: {} };
+    const first = matches[0];
+    const questionText = normalized.slice(0, first.index).trim();
+    const options = {};
+    matches.forEach((match, index) => {
+      const start = match.index + match[0].length;
+      const end = index + 1 < matches.length ? matches[index + 1].index : normalized.length;
+      options[match[1]] = normalized.slice(start, end).trim();
+    });
+    return { questionText: questionText || raw, options };
   },
 
   chooseImage() {
@@ -70,8 +99,13 @@ Page({
   enrich(item) {
     const normalized = app.normalizeMistake(item);
     const nextIndex = normalized.reviewPlan.findIndex(step => !step.done);
+    const options = normalized.options || {};
+    const optionList = app.globalData.ANSWER_OPTIONS
+      .filter(key => options[key])
+      .map(key => ({ key, text: options[key] }));
     return {
       ...normalized,
+      optionList,
       nextRound: nextIndex >= 0 ? nextIndex + 1 : 6
     };
   },
@@ -107,13 +141,24 @@ Page({
     const d = e.detail.value;
     const state = app.getState();
     const createdAt = app.today();
+    const parsed = this.parseChoiceText(d.questionFullText || d.questionText || "");
+    const options = {
+      A: d.optionA || parsed.options.A || "",
+      B: d.optionB || parsed.options.B || "",
+      C: d.optionC || parsed.options.C || "",
+      D: d.optionD || parsed.options.D || ""
+    };
     state.mistakes.unshift({
       id: app.uid(),
       createdAt,
       module: this.data.modules[this.data.moduleIndex],
       source: d.source || "未填写来源",
       summary: d.summary || "未填写摘要",
-      questionText: d.questionText || "",
+      questionFullText: d.questionFullText || "",
+      questionText: d.questionText || parsed.questionText || "",
+      options,
+      userAnswer: this.data.answerOptions[this.data.userAnswerIndex],
+      correctAnswer: this.data.answerOptions[this.data.correctAnswerIndex],
       knowledge: d.knowledge || "",
       reason: this.data.reasons[this.data.reasonIndex],
       solution: d.solution || "",
@@ -125,7 +170,7 @@ Page({
       done: false
     });
     app.setState(state);
-    this.setData({ imagePath: "" });
+    this.setData({ imagePath: "", userAnswerIndex: 0, correctAnswerIndex: 0 });
     wx.showToast({ title: "已生成复盘计划" });
     this.load();
   },

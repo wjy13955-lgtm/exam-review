@@ -132,6 +132,53 @@
   line-height: 1.55;
 }
 
+.choice-question {
+  display: grid;
+  gap: 16rpx;
+  margin-top: 8rpx;
+  padding: 20rpx;
+  border-radius: 20rpx;
+  background: #fffefa;
+}
+
+.choice-stem {
+  color: #26332b;
+  font-size: 27rpx;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.choice-options {
+  display: grid;
+  gap: 12rpx;
+}
+
+.choice-option {
+  display: grid;
+  grid-template-columns: 44rpx 1fr;
+  gap: 12rpx;
+  align-items: flex-start;
+  padding: 16rpx;
+  border: 1rpx solid #e5e2d8;
+  border-radius: 18rpx;
+  background: white;
+  color: #26332b;
+  font-size: 26rpx;
+  line-height: 1.5;
+}
+
+.choice-option text:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  background: #eef0ff;
+  color: #6674a6;
+  font-weight: 900;
+}
+
 .answer-btn {
   width: 100%;
   margin-top: 22rpx;
