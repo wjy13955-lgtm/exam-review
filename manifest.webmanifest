@@ -1,0 +1,13 @@
+{
+  "name": "上岸轨迹｜公考备考驾驶舱",
+  "short_name": "上岸轨迹",
+  "description": "管理公考目标、每日计划、练习、错题复盘与模考进度。",
+  "lang": "zh-CN",
+  "start_url": "./#plan",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#fcfbf8",
+  "theme_color": "#7d89b5",
+  "icons": [{"src":"./assets/app-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}

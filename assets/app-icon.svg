@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#7d89b5"/>
+  <circle cx="256" cy="256" r="166" fill="#fffefa" opacity=".14"/>
+  <path d="M126 361c50-10 90-37 119-82 31 37 77 65 141 82" fill="none" stroke="#efc37b" stroke-width="24" stroke-linecap="round"/>
+  <text x="256" y="306" text-anchor="middle" font-family="STKaiti,KaiTi,serif" font-size="242" font-weight="700" fill="#fffefa">岸</text>
+</svg>

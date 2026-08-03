@@ -59,6 +59,36 @@ let page = location.hash.slice(1) || (window.matchMedia("(max-width: 720px)").ma
 let recordFilter = "全部";
 let planMode = "week";
 let planMonthOffset = 0;
+let deferredInstallPrompt = null;
+
+const isStandalone = () => window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+const isIos = () => /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+function updateInstallPrompt() {
+  const prompt = $("#install-prompt");
+  if (!prompt) return;
+  const dismissed = sessionStorage.getItem("shoreline-install-dismissed") === "1";
+  prompt.hidden = isStandalone() || dismissed || (!deferredInstallPrompt && !isIos());
+  const button = prompt.querySelector('[data-action="install-app"]');
+  if (button) button.textContent = isIos() && !deferredInstallPrompt ? "查看方法" : "安装";
+}
+
+function showIosInstallHelp() {
+  modal(`${closeHead("添加到手机桌面", "iPhone / iPad 安装方法")}
+    <div class="premium-modal-list"><article><div><b>1. 使用 Safari 打开本页面</b><p>微信内置浏览器暂不支持安装，请点右上角后选择“在 Safari 中打开”。</p></div><span>第一步</span></article>
+    <article><div><b>2. 点击浏览器底部的分享按钮</b><p>图标是一个带向上箭头的方框。</p></div><span>第二步</span></article>
+    <article><div><b>3. 选择“添加到主屏幕”</b><p>确认名称后点击“添加”，桌面就会出现上岸轨迹。</p></div><span>完成</span></article></div>
+    <div class="form-actions"><button class="btn" data-action="close">知道了</button></div>`);
+}
+
+async function installApp() {
+  if (!deferredInstallPrompt) { showIosInstallHelp(); return; }
+  deferredInstallPrompt.prompt();
+  const choice = await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt = null;
+  if (choice.outcome === "accepted") toast("已添加到桌面");
+  updateInstallPrompt();
+}
 
 function save(message) {
   localStorage.setItem(KEY, JSON.stringify(state));
@@ -449,6 +479,8 @@ document.addEventListener("click", e => {
   const actions = {
     practice: practiceModal, task: () => taskModal(), mistake: mistakeModal, mock: mockModal, close: closeModal,
     profile: () => modal(profileForm()), premium: premiumModal, export: exportData, import: () => $("#import-file").click(),
+    "install-app": installApp,
+    "dismiss-install": () => { sessionStorage.setItem("shoreline-install-dismissed", "1"); updateInstallPrompt(); },
     regenerate: () => {
       if (!confirm("替换今天及之后未完成的任务？历史记录会保留。")) return;
       const history = state.tasks.filter(t => t.done || t.date < today()); makePlan(); state.tasks = [...history, ...state.tasks]; save("未来计划已重新生成"); render();
@@ -509,4 +541,18 @@ $("#import-file").addEventListener("change", async e => {
 });
 
 window.addEventListener("hashchange", () => { page = location.hash.slice(1) || (window.matchMedia("(max-width: 720px)").matches ? "plan" : "dashboard"); render(); });
+window.addEventListener("beforeinstallprompt", event => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  updateInstallPrompt();
+});
+window.addEventListener("appinstalled", () => {
+  deferredInstallPrompt = null;
+  updateInstallPrompt();
+  toast("上岸轨迹已安装到桌面");
+});
+if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
+}
 render();
+updateInstallPrompt();

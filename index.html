@@ -4,7 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#173f2d">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="上岸轨迹">
+  <meta name="description" content="公考备考目标、计划、练习、错题与模考管理工具">
   <title>上岸轨迹｜公考备考驾驶舱</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./assets/app-icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./wechat-miniprogram-personal/assets/tabbar/plan-active.png">
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
@@ -24,6 +32,11 @@
   </div>
   <nav id="mobile-nav" class="mobile-nav"></nav>
   <div id="modal-root"></div>
+  <div id="install-prompt" class="install-prompt" hidden>
+    <div><b>安装“上岸轨迹”</b><span>放到手机桌面，打开更方便，也可离线使用。</span></div>
+    <button class="btn small" data-action="install-app">安装</button>
+    <button class="install-close" data-action="dismiss-install" aria-label="暂不安装">×</button>
+  </div>
   <input id="import-file" type="file" accept="application/json" hidden>
   <div id="toast" class="toast"></div>
   <script src="./app.js"></script>

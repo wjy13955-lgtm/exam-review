@@ -85,3 +85,16 @@ body{background:#fcfbf8}.sidebar{background:linear-gradient(180deg,#7482ac,#909b
   .locked-panel{align-items:stretch;flex-direction:column}
   .locked-panel .btn{width:100%;min-height:42px}
 }
+
+/* 可安装桌面应用提示 */
+.install-prompt{position:fixed;z-index:90;right:22px;bottom:22px;display:flex;align-items:center;gap:13px;width:min(430px,calc(100% - 28px));padding:14px 15px;border:1px solid #dfe2ec;border-radius:15px;background:#fffefa;box-shadow:0 12px 42px #28335a2b}
+.install-prompt[hidden]{display:none}
+.install-prompt div{min-width:0;flex:1}
+.install-prompt b,.install-prompt span{display:block}
+.install-prompt b{font-size:13px}
+.install-prompt span{margin-top:2px;color:var(--muted);font-size:10px}
+.install-close{align-self:flex-start;border:0;background:transparent;color:var(--muted);font-size:20px;line-height:1}
+@media(max-width:720px){
+  .install-prompt{left:14px;right:14px;bottom:88px;width:auto;padding:12px}
+  .install-prompt .btn{min-height:38px}
+}
